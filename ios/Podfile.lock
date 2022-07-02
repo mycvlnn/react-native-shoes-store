@@ -513,10 +513,10 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
+  glog: cfec46900e485b4b7613ff79308c30791825f32c
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
+  RCT-Folly: b875f1c44f14bb11cee0d9261093ed3fcef84fd5
   RCTRequired: eff60a46da0f496a6c76c8f60108c20626860d27
   RCTTypeSafety: 8cc8a45d0e2f93f1b42b5b2bbf23c4143f19935a
   React: 8a8fc19196a41141ecb5bde33c97091cdc25ccd8

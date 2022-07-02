@@ -1,12 +1,12 @@
+import { Text, View } from 'react-native'
 import React from 'react'
-import { View, Text } from 'react-native'
 
 const Test = () => {
   return (
-    <View>
-      <Text>Hello</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Hello world</Text>
     </View>
   )
 }
 
-export default React.memo(Test)
+export default Test
