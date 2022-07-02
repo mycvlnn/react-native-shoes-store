@@ -68,5 +68,4 @@ yarn.lock
 
 
 # CocoaPods
-/ios/Pods/
 /ios/Podfile.lock
