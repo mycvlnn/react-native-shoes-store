@@ -3,6 +3,7 @@ module.exports = {
     es2021: true,
     node: true,
     jest: true,
+    'react-native/react-native': true,
   },
   extends: [
     'eslint:recommended',
@@ -21,7 +22,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'react-native'],
   rules: {
     indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
@@ -32,6 +33,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
+    'react-native/no-unused-styles': 1,
   },
   settings: {
     react: {
