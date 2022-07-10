@@ -1,27 +1,26 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Box, Typography } from '~/components'
 
 const Home = () => {
   return (
-    <View>
-      <Text style={styles.text2}>Home Screen A</Text>
-      <Text style={styles.text2}>Home Screen A</Text>
-      <Text style={styles.text}>Home Screen A</Text>
-      <Text style={styles.text}>Home Screen A</Text>
-      <Text style={styles.text}>Home Screen A</Text>
-      <Text style={styles.text}>Home Screen A</Text>
-    </View>
+    <Box flex={1} backgroundColor="blue">
+      <Typography fontSize={30}>Hello</Typography>
+      <Typography fontSize={30} fontWeight="bold">
+        Hello
+      </Typography>
+      <Typography fontSize={30}>Hello</Typography>
+      <Box backgroundColor="red" flexDirection="row" justifyContent="space-between">
+        <Typography
+          onLayout={(e) => {
+            console.log(e)
+          }}
+        >
+          Hello
+        </Typography>
+        <Typography>Test</Typography>
+      </Box>
+    </Box>
   )
 }
 
 export default Home
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'Roboto-LightItalic',
-    fontSize: 30,
-  },
-  text2: {
-    fontSize: 30,
-  },
-})
