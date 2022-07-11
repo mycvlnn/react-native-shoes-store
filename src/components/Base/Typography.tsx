@@ -12,9 +12,7 @@ export const listFontFamily = {
   robotoThin: 'Roboto-Thin',
 }
 
-interface Props extends TextStyle, TextProps {
-  children: string
-}
+interface Props extends TextStyle, TextProps {}
 
 const Typography = React.forwardRef<Text, Props>((props, ref) => {
   const { children, fontWeight, ...restProps } = props
