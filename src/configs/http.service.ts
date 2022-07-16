@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-export const BASE_URL = 'http://svcy3.myclass.vn/api/'
+export const BASE_URL = 'https://shop.cyberlearn.vn/api/'
 
 export const config: AxiosRequestConfig = {
   baseURL: BASE_URL,
