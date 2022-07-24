@@ -11,6 +11,7 @@ import {
 } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AsyncStorageStatic } from '@react-native-async-storage/async-storage/lib/typescript/types'
+import logger from 'redux-logger'
 
 import rootReducer, { reducers } from './rootReducer'
 
@@ -37,7 +38,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(logger),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
