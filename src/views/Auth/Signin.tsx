@@ -101,7 +101,6 @@ const SignIn = () => {
             value={values.password}
             error={validateInputField('password')}
             placeholder="Enter your password"
-            keyboardType="email-address"
             secureTextEntry={togglePassword}
             leftIcon={<LockIcon />}
             rightIcon={

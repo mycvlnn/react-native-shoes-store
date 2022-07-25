@@ -3,8 +3,13 @@
 
 import * as yup from 'yup'
 
+export const emailPattern = yup
+  .string()
+  .email('Please enter valid email')
+  .required('Email Address is Required')
+
 export const authenValidation = yup.object().shape({
-  email: yup.string().email('Please enter valid email').required('Email Address is Required'),
+  email: emailPattern,
   password: yup
     .string()
     .min(8, ({ min }) => `Password is too short - should be ${min} chars minimum.`)
