@@ -16,11 +16,12 @@ export interface UserProfile extends SignUp {
   avatar?: string | null
 }
 
-export interface IResponseBase {
-  statusCode?: number
-  message?: string
+export interface SignInResponse extends SignIn {
+  accessToken?: string
 }
 
-export interface SignUpResponse extends IResponseBase {
-  content?: SignUp
+export interface IResponseBase<T> {
+  statusCode?: number
+  message?: string
+  content?: T
 }

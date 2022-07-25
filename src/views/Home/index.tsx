@@ -1,51 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { Box, Typography } from '~/components'
-import { useTranslation } from 'react-i18next'
-import { Alert, Button } from 'react-native'
+import { Button } from 'react-native'
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks'
 import { appUserSelector } from '~/store/appUserSlice/selector'
-import { saveInfoUser } from '~/store/appUserSlice'
-import { signUp } from '~/services'
+
+import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
+import { logoutUser } from '~/store/appUserSlice'
 const Home = () => {
-  const { t, i18n } = useTranslation()
-  const [defaultLang, setDefaultLang] = useState('en')
-  const appUser = useAppSelector(appUserSelector)
+  const navigation = useNavigation()
   const dispatch = useAppDispatch()
-  const postSignUpUser = useCallback(async () => {
-    try {
-      const response = await signUp({
-        email: 'lengoainguvip@gmail.com',
-        gender: true,
-        name: 'Chris',
-        password: '1233231223',
-        phone: '2131231231212',
-      })
-      console.log({ response })
+  const appUser = useAppSelector(appUserSelector)
+  const { t } = useTranslation()
 
-      if (response.statusCode === 201) {
-        console.log(response)
-      } else {
-        const { message } = response
-        console.log({ message })
-      }
-    } catch (error) {
-      console.log({ error })
-    }
-  }, [])
-  useEffect(() => {
-    void postSignUpUser()
-  }, [postSignUpUser])
-
-  // useEffect(() => {
-  //   if (defaultLang) i18n.changeLanguage(defaultLang).catch(() => setDefaultLang('en'))
-  // }, [defaultLang, i18n])
+  const handleLogout = () => {
+    dispatch(logoutUser())
+    navigation.navigate('Authen', { screen: 'SignIn' })
+  }
 
   return (
     <Box flex={1}>
       <Typography fontSize={30} fontWeight="bold">
         {t('hello')}
       </Typography>
+      <Typography>{JSON.stringify(appUser)}</Typography>
+      {appUser.isLogin ? (
+        <Button title="Logout " onPress={handleLogout} />
+      ) : (
+        <Button title="Login" onPress={() => navigation.navigate('Authen', { screen: 'SignUp' })} />
+      )}
     </Box>
   )
 }

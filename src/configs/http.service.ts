@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { getInforUser } from '~/store/appUserSlice/selector'
 
-export const BASE_URL = 'http://svcy3.myclass.vn/api/'
+export const BASE_URL = 'https://shop.cyberlearn.vn/api/'
 
 export const config: AxiosRequestConfig = {
   baseURL: BASE_URL,
@@ -15,10 +16,12 @@ export const config: AxiosRequestConfig = {
 const axiosInstance: AxiosInstance = axios.create(config)
 
 export const httpRequest = (options?: AxiosRequestConfig) => {
+  const { accessToken, localeCode } = getInforUser()
+
   const defaultConfig: AxiosRequestConfig = {
     headers: {
-      'Accept-Language': 'en', // Sẽ tùy chỉnh ngôn ngữ sau
-      Authorization: 'Bearer ', // Sẽ bổ sung sau
+      'Accept-Language': localeCode || 'en',
+      Authorization: `Bearer ${accessToken || ''}`,
     },
     ...options,
   }
