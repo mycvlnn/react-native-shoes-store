@@ -9,6 +9,8 @@ import EmailIcon from './EmailIcon'
 import LockIcon from './LockIcon'
 import EyeIcon from './EyeIcon'
 import EyeIconSlash from './EyeIconSlash'
+import ChevronBigLeft from './arrow/ChevronBigLeft'
+import ArrowRight from './arrow/ArrowRight'
 
 export {
   HomeOutlineIcon,
@@ -22,4 +24,6 @@ export {
   LockIcon,
   EyeIcon,
   EyeIconSlash,
+  ChevronBigLeft,
+  ArrowRight,
 }
