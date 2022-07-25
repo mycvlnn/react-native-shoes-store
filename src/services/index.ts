@@ -1,2 +1,4 @@
 import { signUp } from './users/signUpService'
-export { signUp }
+import { signIn } from './users/signInService'
+
+export { signUp, signIn }

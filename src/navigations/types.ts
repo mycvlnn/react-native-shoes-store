@@ -19,6 +19,11 @@ export type BottomTabParamList = {
   Setting: undefined
 }
 
+export type AuthenTabParamList = {
+  SignIn: undefined
+  SignUp: undefined
+}
+
 export type RootStackParamList = {
   BottomTab: NavigatorScreenParams<BottomTabParamList>
   ProductDetail: { id: string }
@@ -27,6 +32,7 @@ export type RootStackParamList = {
   Language: undefined
   YourCart: undefined
   NotFound: undefined
+  Authen: NavigatorScreenParams<AuthenTabParamList>
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<

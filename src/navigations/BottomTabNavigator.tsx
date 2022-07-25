@@ -6,7 +6,7 @@ import Home from '~/views/Home'
 import Favorites from '~/views/Favorites'
 import Search from '~/views/Search'
 import Setting from '~/views/Setting'
-import { FavoriteOutline, HomeOutlineIcon, MenuBarIcon, SearchIcon } from '~/assets/Icons'
+import { FavoriteOutline, HomeOutlineIcon, MenuBarIcon, SearchIcon } from '~/assets/icons'
 import { tabBarActiveTintColor } from '~/constants'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()

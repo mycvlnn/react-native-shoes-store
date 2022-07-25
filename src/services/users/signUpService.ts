@@ -1,17 +1,17 @@
 import { AxiosError, AxiosRequestConfig } from 'axios'
 import { config, SIGN_UP, httpRequest } from '~/configs'
-import { SignUp, SignUpResponse } from '../types'
+import { IResponseBase, SignUp } from '../models'
 
 export const signUp: (
   signUpData: SignUp,
   config?: AxiosRequestConfig,
-) => Promise<SignUpResponse> = async (signUpData) => {
+) => Promise<IResponseBase<SignUp>> = async (signUpData) => {
   try {
-    const response = await httpRequest().post<SignUpResponse>(SIGN_UP, signUpData, config)
+    const response = await httpRequest().post<IResponseBase<SignUp>>(SIGN_UP, signUpData, config)
 
     return response.data
   } catch (error) {
-    const err = error as AxiosError<SignUpResponse>
+    const err = error as AxiosError<IResponseBase<SignUp>>
 
     if (err.response?.data) {
       return {
