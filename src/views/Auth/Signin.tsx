@@ -14,7 +14,7 @@ import {
 } from '~/assets/icons'
 import { Box, ButtonOpacity, CustomInput, Typography } from '~/components'
 import { colorFacebook, primaryColor, sizes, STATUS } from '~/constants'
-import { authenValidation } from '~/schemas'
+import { signInValidation } from '~/schemas'
 import { signIn } from '~/services'
 
 import { useAppDispatch } from '~/store/hooks'
@@ -38,7 +38,7 @@ const SignIn = () => {
       email: '',
       password: '',
     },
-    validationSchema: authenValidation,
+    validationSchema: signInValidation,
     onSubmit: (values) => {
       void handleLogin(values)
     },
