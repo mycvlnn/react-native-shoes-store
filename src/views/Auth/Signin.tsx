@@ -215,7 +215,7 @@ export default SignIn
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: sizes.horizontal,
+    paddingHorizontal: sizes.horizontal,
     marginVertical: 48,
   },
 })
