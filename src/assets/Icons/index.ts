@@ -11,6 +11,7 @@ import EyeIcon from './EyeIcon'
 import EyeIconSlash from './EyeIconSlash'
 import ChevronBigLeft from './arrow/ChevronBigLeft'
 import ArrowRight from './arrow/ArrowRight'
+import UserSolid from './users/UserSolid'
 
 export {
   HomeOutlineIcon,
@@ -26,4 +27,5 @@ export {
   EyeIconSlash,
   ChevronBigLeft,
   ArrowRight,
+  UserSolid,
 }

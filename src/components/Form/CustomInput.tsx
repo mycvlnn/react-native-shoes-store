@@ -14,6 +14,7 @@ import Typography from '../Base/Typography'
 interface CustomInputProps extends TextInputProps {
   label?: string
   value?: string
+  isRequired?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   error?: string
@@ -26,6 +27,7 @@ interface CustomInputProps extends TextInputProps {
 const CustomInput: React.FC<CustomInputProps> = ({
   label,
   value,
+  isRequired,
   leftIcon,
   rightIcon,
   error,
@@ -39,7 +41,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     <Box>
       {label && (
         <Typography marginBottom={8} fontSize={16} {...labelStyle}>
-          {label}
+          {label} {isRequired && <Typography color="red">*</Typography>}
         </Typography>
       )}
       <Box flexDirection="row" alignItems="center" style={[styles.containerInput, containerStyle]}>

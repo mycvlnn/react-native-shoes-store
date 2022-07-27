@@ -52,7 +52,7 @@ const ForgotPassword: React.FC<Props> = ({ onForgotPassword = () => {} }) => {
         fontSize={36}
         marginTop={30}
         color={primaryBold}
-        fontWeight="700"
+        fontWeight="600"
         width="50%"
         marginBottom={28}
       >
