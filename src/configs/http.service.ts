@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { getInforUser } from '~/store/appUserSlice/selector'
 
 export const BASE_URL = 'https://shop.cyberlearn.vn/api/'
@@ -18,11 +18,13 @@ const axiosInstance: AxiosInstance = axios.create(config)
 export const httpRequest = (options?: AxiosRequestConfig) => {
   const { accessToken, localeCode } = getInforUser()
 
+  const headers: AxiosRequestHeaders = {
+    'Accept-Language': localeCode || 'en',
+    Authorization: `Bearer ${accessToken || ''}`,
+  }
+
   const defaultConfig: AxiosRequestConfig = {
-    headers: {
-      'Accept-Language': localeCode || 'en',
-      Authorization: `Bearer ${accessToken || ''}`,
-    },
+    headers,
     ...options,
   }
 

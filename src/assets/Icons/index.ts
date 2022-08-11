@@ -12,6 +12,10 @@ import EyeIconSlash from './EyeIconSlash'
 import ChevronBigLeft from './arrow/ChevronBigLeft'
 import ArrowRight from './arrow/ArrowRight'
 import UserSolid from './users/UserSolid'
+import LocationSolid from './LocationSolid'
+import MenuIconLeft from './MenuIcon'
+import BagRegular from './BagRegular'
+import SearchIconPro from './SearchIconPro'
 
 export {
   HomeOutlineIcon,
@@ -28,4 +32,8 @@ export {
   ChevronBigLeft,
   ArrowRight,
   UserSolid,
+  LocationSolid,
+  MenuIconLeft,
+  BagRegular,
+  SearchIconPro,
 }

@@ -14,6 +14,8 @@ import Typography from '../Base/Typography'
 interface CustomInputProps extends TextInputProps {
   label?: string
   value?: string
+  backgroundColor?: string
+  radius?: number
   isRequired?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
@@ -27,6 +29,8 @@ interface CustomInputProps extends TextInputProps {
 const CustomInput: React.FC<CustomInputProps> = ({
   label,
   value,
+  backgroundColor = '#fff',
+  radius = 10,
   isRequired,
   leftIcon,
   rightIcon,
@@ -44,8 +48,14 @@ const CustomInput: React.FC<CustomInputProps> = ({
           {label} {isRequired && <Typography color="red">*</Typography>}
         </Typography>
       )}
-      <Box flexDirection="row" alignItems="center" style={[styles.containerInput, containerStyle]}>
-        <Box marginRight={6}>{leftIcon}</Box>
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        borderRadius={radius}
+        style={[styles.containerInput, containerStyle]}
+        backgroundColor={backgroundColor}
+      >
+        <Box marginRight={8}>{leftIcon}</Box>
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -53,7 +63,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           value={value}
           {...passProps}
         />
-        <Box marginHorizontal={6}>{rightIcon}</Box>
+        <Box marginHorizontal={8}>{rightIcon}</Box>
       </Box>
       {error && (
         <Typography color="red" marginTop={4}>
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
   containerInput: {
     height: 58,
     padding: 10,
-    borderRadius: 10,
+
     backgroundColor: '#FFFFFF',
   },
   input: {

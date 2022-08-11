@@ -62,7 +62,7 @@ const Header: React.FC<IProps> = ({
     <Box
       paddingHorizontal={sizes.horizontal}
       paddingTop={insets.top}
-      paddingBottom={insets.bottom}
+      paddingBottom={insets.top / 2}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"
@@ -77,5 +77,3 @@ const Header: React.FC<IProps> = ({
 }
 
 export default Header
-
-const styles = StyleSheet.create({})

@@ -11,3 +11,8 @@ export const textColor = '#101820'
 export const colorFacebook = '#1877F2'
 
 export const disabledColor = '#CECECE'
+
+export const defaultColors = {
+  black: '#1a1917',
+  gray: '#888888',
+}
