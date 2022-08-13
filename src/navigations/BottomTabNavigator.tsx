@@ -20,7 +20,10 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen
         name="Home"
         component={Home}
-        options={{ tabBarIcon: ({ color }) => <HomeOutlineIcon color={color} /> }}
+        options={{
+          tabBarIcon: ({ color }) => <HomeOutlineIcon color={color} />,
+          headerShown: false,
+        }}
       />
       <BottomTab.Screen
         name="Search"

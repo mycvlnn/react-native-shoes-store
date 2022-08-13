@@ -32,7 +32,7 @@ const Typography = React.forwardRef<Text, Props>((props, ref) => {
       case '400':
       case 'normal':
         return robotoRegular
-      case '500':
+      case '600':
         return robotoMedium
       case '700':
         return robotoBold
@@ -48,8 +48,8 @@ const Typography = React.forwardRef<Text, Props>((props, ref) => {
     <Text
       ref={ref}
       style={{
-        ...restProps,
         fontFamily: getFontFamilyByFontWeight(),
+        ...restProps,
       }}
       {...restProps}
     >

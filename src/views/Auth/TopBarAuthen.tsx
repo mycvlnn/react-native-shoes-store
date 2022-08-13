@@ -1,8 +1,8 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { AuthenTabParamList } from '~/navigations/types'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './Signin'
+import SignUp from './Signup'
 import { primaryBold } from '~/constants'
 
 const Tab = createMaterialTopTabNavigator<AuthenTabParamList>()

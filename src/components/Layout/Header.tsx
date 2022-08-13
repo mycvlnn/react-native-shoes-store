@@ -8,7 +8,21 @@ import { sizes, textColor } from '~/constants'
 
 interface IProps {
   title?: string
+  fontWeight?:
+    | '700'
+    | 'bold'
+    | 'normal'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '800'
+    | '900'
   color?: string
+  position?: 'relative' | 'absolute'
+  width?: string | number
   backgroundColor?: string
   iconBackColor?: string
   zIndex?: number
@@ -20,9 +34,12 @@ interface IProps {
 
 const Header: React.FC<IProps> = ({
   title,
+  fontWeight = '700',
   color = 'white',
   backgroundColor = textColor,
   zIndex = 1,
+  width = '100%',
+  position = 'relative',
   goBack,
   customBack,
   customRight,
@@ -45,7 +62,7 @@ const Header: React.FC<IProps> = ({
     if (title)
       return (
         <Box maxWidth="80%">
-          <Typography numberOfLines={1} fontSize={22} fontWeight="700" color={color}>
+          <Typography numberOfLines={1} fontSize={22} fontWeight={fontWeight} color={color}>
             {title}
           </Typography>
         </Box>
@@ -60,9 +77,12 @@ const Header: React.FC<IProps> = ({
 
   return (
     <Box
+      position={position}
+      top={0}
+      width={width}
       paddingHorizontal={sizes.horizontal}
       paddingTop={insets.top}
-      paddingBottom={insets.bottom}
+      paddingBottom={insets.top / 2}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"
@@ -77,5 +97,3 @@ const Header: React.FC<IProps> = ({
 }
 
 export default Header
-
-const styles = StyleSheet.create({})
