@@ -1,4 +1,4 @@
-export interface IRestaurant {
+export interface IStore {
   id: number
   name: string
   alias: string

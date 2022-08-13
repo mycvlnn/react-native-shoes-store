@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Box, Header, Typography } from '~/components'
-import { Pressable, ScrollView } from 'react-native'
+import { Pressable, ScrollView, StyleSheet } from 'react-native'
 
 import { useAppDispatch } from '~/store/hooks'
 
@@ -12,10 +12,10 @@ import { BagRegular, LocationSolid, MenuIconLeft } from '~/assets/icons'
 import BoxShadow from './components/BoxShadow'
 import Banner from './components/Banner'
 import { getAllCategory, getAllStore } from '~/services'
-import { ICategory, IProductDetail, IRestaurant } from '~/services/models'
+import { ICategory, IProductDetail, IStore } from '~/services/models'
 import { getProductByCategoryId } from '~/services/products/productService'
 import ProductItem from './components/ProductItem'
-import ItemRestaurant from './components/ItemRestaurant'
+import ItemStore from './components/ItemStore'
 
 const Home = () => {
   const navigation = useNavigation()
@@ -24,7 +24,7 @@ const Home = () => {
   const [idActiveCategory, setIdActiveCategory] = useState('')
   const [categories, setCategories] = useState<ICategory[]>([])
   const [listProduct, setListProduct] = useState<IProductDetail[]>([])
-  const [listStore, setListStore] = useState<IRestaurant[]>([])
+  const [listStore, setListStore] = useState<IStore[]>([])
   const { t } = useTranslation()
 
   const handleClickCategory = (id: string) => {
@@ -93,15 +93,13 @@ const Home = () => {
               return (
                 <Pressable
                   key={data.id}
-                  style={{
-                    backgroundColor: isActive ? '#000' : '#fff',
-                    borderColor: isActive ? primaryColor : '#000',
-                    marginRight: 16,
-                    paddingHorizontal: 20,
-                    paddingVertical: 10,
-                    borderRadius: 30,
-                    borderWidth: 1.5,
-                  }}
+                  style={[
+                    {
+                      backgroundColor: isActive ? '#000' : '#fff',
+                      borderColor: isActive ? primaryColor : '#000',
+                    },
+                    styles.category,
+                  ]}
                   onPress={() => handleClickCategory(data.id)}
                 >
                   <Typography color={isActive ? '#fff' : '#000'}>{data.category}</Typography>
@@ -114,6 +112,10 @@ const Home = () => {
     )
   }
 
+  const goToDetailProduct = (id: number) => {
+    navigation.navigate('ProductDetail', { id })
+  }
+
   const renderListProduct = () => {
     return (
       <Box marginTop={30} marginBottom={30}>
@@ -122,6 +124,7 @@ const Home = () => {
             {listProduct.map(({ id, name, price, shortDescription, image }) => {
               return (
                 <ProductItem
+                  onPress={() => goToDetailProduct(id)}
                   key={id.toString()}
                   name={name}
                   image={image}
@@ -196,7 +199,7 @@ const Home = () => {
           Explore more
         </Typography>
         {listStore.map(({ id, name, image, description }) => {
-          return <ItemRestaurant key={id} name={name} image={image} description={description} />
+          return <ItemStore key={id} name={name} image={image} description={description} />
         })}
       </Box>
     )
@@ -219,3 +222,13 @@ const Home = () => {
 }
 
 export default Home
+
+const styles = StyleSheet.create({
+  category: {
+    marginRight: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 30,
+    borderWidth: 1.5,
+  },
+})

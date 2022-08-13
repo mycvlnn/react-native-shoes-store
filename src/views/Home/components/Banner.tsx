@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ListRenderItem, Pressable, StyleSheet } from 'react-native'
+import { ListRenderItem, StyleSheet } from 'react-native'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
 import { Box } from '~/components'
@@ -7,6 +8,7 @@ import { defaultColors, STATUS } from '~/constants'
 import { IBanner } from '~/models'
 import { getListBanner } from '~/services'
 import { itemWidth, sliderWidth } from '../styles/StylesCarousel'
+import ItemBanner from './ItemBanner'
 
 const DEFAULT_DATA = [
   {
@@ -33,6 +35,7 @@ const SLIDER_FIRST_ITEM = 1
 const Banner = () => {
   const [activeSlide, setActiveSlide] = useState(SLIDER_FIRST_ITEM)
   const [data, setData] = useState<IBanner[]>(DEFAULT_DATA)
+  const navigation = useNavigation()
 
   const getBanner = useCallback(async () => {
     try {
@@ -52,13 +55,21 @@ const Banner = () => {
     void getBanner()
   }, [getBanner])
 
+  const handleClickBanner = (id: number) => {
+    navigation.navigate('ProductDetail', { id })
+  }
+
   const renderItem: ListRenderItem<IBanner> = ({ item }) => {
-    const { image } = item
+    const { image, name, id, price, size } = item
 
     return (
-      <Pressable style={styles.boxItemImage}>
-        <Image source={{ uri: image }} style={{ height: 300 }} />
-      </Pressable>
+      <ItemBanner
+        size={size}
+        image={image}
+        name={name}
+        onPress={() => handleClickBanner(id)}
+        price={price}
+      />
     )
   }
 
@@ -102,14 +113,6 @@ const Banner = () => {
 export default Banner
 
 const styles = StyleSheet.create({
-  boxItemImage: {
-    borderRadius: 16,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    backgroundColor: '#fff',
-  },
   slider: {
     marginTop: 15,
     overflow: 'visible', // for custom animations

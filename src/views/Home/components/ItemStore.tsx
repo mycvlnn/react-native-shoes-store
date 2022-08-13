@@ -1,4 +1,4 @@
-import { Image, StyleSheet } from 'react-native'
+import { Image } from 'react-native'
 import React from 'react'
 import { Box, Typography } from '~/components'
 import { primaryBold } from '~/constants'
@@ -9,7 +9,7 @@ interface IProps {
   description: string
 }
 
-const ItemRestaurant: React.FC<IProps> = ({ image, name, description }) => {
+const ItemStore: React.FC<IProps> = ({ image, name, description }) => {
   return (
     <Box borderBottomColor="#000" borderBottomWidth={1} paddingBottom={20} marginBottom={30}>
       <Image source={{ uri: image }} style={{ height: 200, borderRadius: 20 }} />
@@ -36,6 +36,4 @@ const ItemRestaurant: React.FC<IProps> = ({ image, name, description }) => {
   )
 }
 
-export default ItemRestaurant
-
-const styles = StyleSheet.create({})
+export default ItemStore
