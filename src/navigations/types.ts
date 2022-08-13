@@ -26,7 +26,7 @@ export type AuthenTabParamList = {
 
 export type RootStackParamList = {
   BottomTab: NavigatorScreenParams<BottomTabParamList>
-  ProductDetail: { id: string }
+  ProductDetail: { id: string | number }
   Location: undefined
   EditProfile: undefined
   Language: undefined

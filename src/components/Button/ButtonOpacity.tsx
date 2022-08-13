@@ -15,6 +15,7 @@ interface IProps {
   fontWeight?: TextStyle['fontWeight']
   leftIcon?: React.ReactNode
   disabled?: boolean
+  children?: React.ReactNode
 }
 
 const ButtonOpacity: React.FC<IProps> = ({
@@ -28,6 +29,7 @@ const ButtonOpacity: React.FC<IProps> = ({
   fontWeight = '700',
   leftIcon,
   disabled,
+  children,
 }) => {
   let style: ViewStyle = {
     paddingVertical: 16,
@@ -45,6 +47,7 @@ const ButtonOpacity: React.FC<IProps> = ({
 
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       disabled={disabled}
       onPress={onPress}
       style={[
@@ -65,6 +68,7 @@ const ButtonOpacity: React.FC<IProps> = ({
         >
           {title}
         </Typography>
+        {children}
       </Box>
     </TouchableOpacity>
   )

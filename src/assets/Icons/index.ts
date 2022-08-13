@@ -16,6 +16,9 @@ import LocationSolid from './LocationSolid'
 import MenuIconLeft from './MenuIcon'
 import BagRegular from './BagRegular'
 import SearchIconPro from './SearchIconPro'
+import PlusIcon from './PlusIcon'
+import MinusIcon from './MinusPlus'
+import StarIcon from './StarIcon'
 
 export {
   HomeOutlineIcon,
@@ -36,4 +39,7 @@ export {
   MenuIconLeft,
   BagRegular,
   SearchIconPro,
+  PlusIcon,
+  MinusIcon,
+  StarIcon,
 }
