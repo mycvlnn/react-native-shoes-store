@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useSelector } from 'react-redux'
 
 import BottomTabNavigator from './BottomTabNavigator'
 import { RootStackParamList } from './types'
@@ -11,7 +12,6 @@ import Language from '~/views/Language'
 import Location from '~/views/Setting/views/Location'
 import { Loading } from '~/components'
 import Authen from '~views/Auth'
-import { useSelector } from 'react-redux'
 import { appUserSelector } from '~/store/appUserSlice/selector'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -30,18 +30,30 @@ const StackNavigator = () => {
 
   return (
     <Stack.Navigator initialRouteName={isLogin ? 'BottomTab' : 'Authen'}>
-      <Stack.Screen
-        name="BottomTab"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="ProductDetail" component={ProductDetail} />
-      <Stack.Screen name="NotFound" component={NotFound} />
-      <Stack.Screen name="Language" component={Language} />
-      <Stack.Screen name="Authen" component={Authen} options={{ headerShown: false }} />
-      <Stack.Screen name="Location" component={Location} />
-      <Stack.Screen name="YourCart" component={YourCart} />
-      <Stack.Screen name="EditProfile" component={EditProfile} />
+      {isLogin ? (
+        <>
+          <Stack.Screen
+            name="BottomTab"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetail}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="NotFound" component={NotFound} />
+          <Stack.Screen name="Language" component={Language} />
+
+          <Stack.Screen name="Location" component={Location} />
+          <Stack.Screen name="YourCart" component={YourCart} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+        </>
+      ) : (
+        <Stack.Screen name="Authen" component={Authen} options={{ headerShown: false }} />
+      )}
     </Stack.Navigator>
   )
 }

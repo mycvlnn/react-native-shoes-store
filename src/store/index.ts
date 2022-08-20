@@ -26,7 +26,7 @@ const persistConfig: persistConfigType = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['appUser'], // Danh sách những slice được persist
+  whitelist: ['appUser', 'cart'], // Danh sách những slice được persist
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

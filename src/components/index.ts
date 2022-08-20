@@ -5,5 +5,6 @@ import Loading from './UI/Loading'
 import Header from './Layout/Header'
 import ButtonOpacity from './Button/ButtonOpacity'
 import CustomInput from './Form/CustomInput'
+import ErrorServer from './UI/ErrorServer'
 
-export { Test, Typography, Box, Loading, Header, ButtonOpacity, CustomInput }
+export { Test, Typography, Box, Loading, Header, ButtonOpacity, CustomInput, ErrorServer }
