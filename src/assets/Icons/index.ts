@@ -19,6 +19,7 @@ import SearchIconPro from './SearchIconPro'
 import PlusIcon from './PlusIcon'
 import MinusIcon from './MinusPlus'
 import StarIcon from './StarIcon'
+import ErrorServerIcon from './ErrorServerIcon'
 
 export {
   HomeOutlineIcon,
@@ -42,4 +43,5 @@ export {
   PlusIcon,
   MinusIcon,
   StarIcon,
+  ErrorServerIcon,
 }

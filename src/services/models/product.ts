@@ -17,3 +17,14 @@ export interface IProductDetail extends IBaseItemProduct {
   categories: ICategory[]
   relatedProducts: IBaseItemProduct[]
 }
+
+export interface IProductFavorite {
+  id: number
+  name: string
+  image: string
+}
+
+export interface IDataProductFavorite {
+  productsFavorite: IProductFavorite[]
+  email: string
+}

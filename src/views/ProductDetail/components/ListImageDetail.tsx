@@ -1,36 +1,37 @@
-import { Image, ListRenderItem, StyleSheet } from 'react-native'
+import { Image, ListRenderItem, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Box } from '~/components'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { defaultColors } from '~/constants'
 import { sliderWidth } from '~/views/Home/styles/StylesCarousel'
-
-const DEFAULT_DATA = [
-  {
-    id: 1,
-    image: 'https://shop.cyberlearn.vn/images/adidas-prophere.png',
-  },
-  {
-    id: 2,
-    image: 'https://shop.cyberlearn.vn/images/adidas-prophere.png',
-  },
-]
+import { IBaseItemProduct } from '~/services/models'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackNavigationProps } from '~/navigations/types'
 
 const SLIDER_FIRST_ITEM = 1
 
-const ListImageDetail = () => {
-  const [activeSlide, setActiveSlide] = useState(SLIDER_FIRST_ITEM)
+interface IProps {
+  data: IBaseItemProduct[]
+}
 
-  const renderItem: ListRenderItem<{ id: number; image: string }> = ({ item }) => {
+const ListImageDetail: React.FC<IProps> = ({ data = [] }) => {
+  const [activeSlide, setActiveSlide] = useState(SLIDER_FIRST_ITEM)
+  const navigation = useNavigation<RootStackNavigationProps<'ProductDetail'>>()
+
+  const renderItem: ListRenderItem<IBaseItemProduct> = ({ item }) => {
     const { image, id } = item
 
-    return <Image source={{ uri: image }} style={{ height: 400 }} />
+    return (
+      <Pressable onPress={() => navigation.push('ProductDetail', { id })}>
+        <Image source={{ uri: image }} style={{ height: 400 }} />
+      </Pressable>
+    )
   }
 
   return (
     <Box>
       <Carousel
-        data={DEFAULT_DATA}
+        data={data}
         renderItem={renderItem}
         sliderWidth={sliderWidth}
         itemWidth={sliderWidth}
@@ -48,7 +49,7 @@ const ListImageDetail = () => {
       />
 
       <Pagination
-        dotsLength={Math.min(DEFAULT_DATA.length, 5)}
+        dotsLength={Math.min(data.length, 5)}
         activeDotIndex={activeSlide}
         containerStyle={styles.containterPagination}
         dotColor={defaultColors.gray}
@@ -66,6 +67,6 @@ const styles = StyleSheet.create({
   containterPagination: {
     position: 'absolute',
     width: '100%',
-    bottom: '10%',
+    bottom: '16%',
   },
 })

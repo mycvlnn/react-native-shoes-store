@@ -30,24 +30,30 @@ const StackNavigator = () => {
 
   return (
     <Stack.Navigator initialRouteName={isLogin ? 'BottomTab' : 'Authen'}>
-      <Stack.Screen
-        name="BottomTab"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ProductDetail"
-        component={ProductDetail}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen name="NotFound" component={NotFound} />
-      <Stack.Screen name="Language" component={Language} />
-      <Stack.Screen name="Authen" component={Authen} options={{ headerShown: false }} />
-      <Stack.Screen name="Location" component={Location} />
-      <Stack.Screen name="YourCart" component={YourCart} />
-      <Stack.Screen name="EditProfile" component={EditProfile} />
+      {isLogin ? (
+        <>
+          <Stack.Screen
+            name="BottomTab"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetail}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="NotFound" component={NotFound} />
+          <Stack.Screen name="Language" component={Language} />
+
+          <Stack.Screen name="Location" component={Location} />
+          <Stack.Screen name="YourCart" component={YourCart} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+        </>
+      ) : (
+        <Stack.Screen name="Authen" component={Authen} options={{ headerShown: false }} />
+      )}
     </Stack.Navigator>
   )
 }

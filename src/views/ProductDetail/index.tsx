@@ -1,15 +1,35 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Box, ButtonOpacity, Header, Typography } from '~/components'
+import { Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
-import { defaultColors, primaryBold, primaryColor, sizes } from '~/constants'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Box, ErrorServer, Header, Loading, Typography } from '~/components'
+import { defaultColors, primaryBold, primaryColor, sizes, STATUS } from '~/constants'
 import BoxShadow from '../Home/components/BoxShadow'
 import { ChevronBigLeft, FavoriteOutline, MinusIcon, PlusIcon, StarIcon } from '~/assets/icons'
-import { useNavigation } from '@react-navigation/native'
 import ListImageDetail from './components/ListImageDetail'
+import { RootStackRouteProps } from '~/navigations/types'
+import { getDetailProductApi, toogleFavoriteProductItem } from '~/services'
+import { IProductDetail } from '~/services/models'
+import { useAppDispatch } from '~/store/hooks'
+import { addToCart } from '~/store/cartSlice'
+
+export const MAX_QUANTITY = 99
+export const MIN_QUANTITY = 1
 
 const ProductDetail = () => {
   const navigation = useNavigation()
+  const dispatch = useAppDispatch()
+  const { params } = useRoute<RootStackRouteProps<'ProductDetail'>>()
+
+  const [data, setData] = useState<IProductDetail>()
+  const [isRefresh, setIsRefresh] = useState<boolean>(false)
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [quantity, setQuantity] = useState(1)
+  const [totalQuantity, setTotalQuantity] = useState(0)
+
+  const [sizeSelected, setSizeSelected] = useState<string>()
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const renderBackIcon = () => {
     return (
@@ -19,16 +39,45 @@ const ProductDetail = () => {
     )
   }
 
+  // TODO: Cần phải xử lý thêm trường hợp chưa đăng nhập
+  const toggleFavoriteItem = async () => {
+    try {
+      const id = params.id
+
+      const { statusCode } = await toogleFavoriteProductItem(id, !isFavorite)
+
+      if (statusCode === STATUS.SUCCESS_NUM) {
+        setIsFavorite(!isFavorite)
+      }
+    } catch (error) {
+      // nothing
+    }
+  }
+
   const renderFavorite = () => {
     return (
-      <BoxShadow>
-        <FavoriteOutline size={18} fillColor="red" color="red" />
-      </BoxShadow>
+      <Pressable hitSlop={4} onPress={() => void toggleFavoriteItem()}>
+        <BoxShadow>
+          <FavoriteOutline size={18} fillColor={isFavorite ? 'red' : 'white'} color="red" />
+        </BoxShadow>
+      </Pressable>
     )
   }
 
   const handleGoBack = () => {
     navigation.goBack()
+  }
+
+  const handleControlQuantity = (controlNumber: number) => {
+    if (
+      (quantity === MAX_QUANTITY && controlNumber === 1) ||
+      (quantity === MIN_QUANTITY && controlNumber === -1) ||
+      (quantity >= totalQuantity && controlNumber === 1)
+    )
+      return
+
+    setQuantity((prevQuantity) => prevQuantity + controlNumber)
+    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity - controlNumber)
   }
 
   const renderBtnControl = () => {
@@ -43,15 +92,17 @@ const ProductDetail = () => {
         top={-20}
       >
         <TouchableOpacity
+          onPress={() => handleControlQuantity(-1)}
           activeOpacity={0.7}
           style={{ paddingVertical: 12, paddingHorizontal: 20 }}
         >
           <MinusIcon color="white" />
         </TouchableOpacity>
         <Typography fontSize={18} fontWeight="700" color={primaryColor}>
-          1
+          {quantity}
         </Typography>
         <TouchableOpacity
+          onPress={() => handleControlQuantity(1)}
           activeOpacity={0.7}
           style={{ paddingVertical: 12, paddingHorizontal: 20 }}
         >
@@ -61,25 +112,35 @@ const ProductDetail = () => {
     )
   }
 
+  const renderTotalQuantity = () => {
+    return (
+      <Typography marginLeft="auto" fontSize={20} fontWeight="600" paddingVertical={10}>
+        x {totalQuantity}
+      </Typography>
+    )
+  }
+
   const renderInfoShoes = () => {
     return (
       <Box flexDirection="row" alignItems="center" justifyContent="space-between">
         <Box>
           <Typography fontSize={26} fontWeight="700">
-            Nike Jordon
+            {data?.name}
           </Typography>
-          <Typography marginTop={12} color={defaultColors.gray}>
-            Green Hund Shoes
+          <Typography marginTop={12} color={defaultColors.gray} width="90%">
+            {data?.shortDescription}
           </Typography>
         </Box>
         <Typography fontWeight="700" fontSize={24}>
-          $88.8
+          ${data?.price}
         </Typography>
       </Box>
     )
   }
 
   const renderSizes = () => {
+    if (!data?.size) return null
+
     return (
       <Box
         marginTop={20}
@@ -93,19 +154,22 @@ const ProductDetail = () => {
           Size
         </Typography>
         <Box flexDirection="row">
-          {[20, 21, 22, 23, 24].map((item, index) => {
+          {data.size.slice(0, 5).map((item) => {
+            const isActive = sizeSelected === item
+
             return (
-              <Box
-                borderColor={index != 0 ? 'black' : primaryBold}
-                borderWidth={1}
-                key={item}
-                borderRadius={100}
-                padding={12}
-                marginHorizontal={10}
-                backgroundColor={index === 0 ? primaryBold : 'white'}
-              >
-                <Typography color={index === 0 ? 'white' : 'black'}>{item}</Typography>
-              </Box>
+              <Pressable key={item} onPress={() => setSizeSelected(item)}>
+                <Box
+                  borderColor={isActive ? primaryBold : 'black'}
+                  borderWidth={1}
+                  borderRadius={100}
+                  padding={12}
+                  marginHorizontal={10}
+                  backgroundColor={isActive ? primaryBold : 'white'}
+                >
+                  <Typography color={isActive ? 'white' : 'black'}>{item}</Typography>
+                </Box>
+              </Pressable>
             )
           })}
         </Box>
@@ -135,14 +199,31 @@ const ProductDetail = () => {
           </Box>
         </Box>
         <Typography marginTop={30} fontSize={16}>
-          The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement
+          {data?.description}
         </Typography>
       </Box>
     )
   }
 
   const handleAddToCart = () => {
-    // TODO: Xu ly add to cart
+    if (!data) return
+    const { image, id, shortDescription, price, name } = data
+
+    const primaryKey = `${id}-${sizeSelected as string}`
+
+    dispatch(
+      addToCart({
+        id,
+        image,
+        shortDescription,
+        name,
+        size: Number(sizeSelected),
+        price,
+        quantity,
+        primaryKey,
+      }),
+    )
+    navigation.goBack()
   }
 
   const renderBtnAddToCart = () => {
@@ -160,16 +241,56 @@ const ProductDetail = () => {
             Add to cart
           </Typography>
           <Typography color="white" fontSize={20} fontWeight="700">
-            $88.8
+            ${quantity * (data?.price ?? 0)}
           </Typography>
         </Box>
       </TouchableOpacity>
     )
   }
 
+  const getDetailProduct = useCallback(async () => {
+    const id = params.id
+
+    setLoading(true)
+    try {
+      const { statusCode, content } = await getDetailProductApi(id)
+      if (statusCode === STATUS.SUCCESS_NUM) {
+        if (!content) return
+        setData(content)
+        setSizeSelected(content?.size[0])
+        setTotalQuantity(content.quantity)
+        setIsRefresh(false)
+        setError(false)
+      } else {
+        setError(true)
+      }
+    } catch (error) {
+      setError(true)
+    }
+
+    setLoading(false)
+  }, [params.id])
+
+  useEffect(() => {
+    void getDetailProduct()
+  }, [getDetailProduct])
+
+  if (!error && loading) return <Loading />
+
+  const handleRetryData = () => {
+    void getDetailProduct()
+  }
+
+  if (error) return <ErrorServer onRetry={handleRetryData} />
+
+  const onRefreshData = () => {
+    setIsRefresh(true)
+    void getDetailProduct()
+  }
+
   return (
     <Box flex={1}>
-      <ListImageDetail />
+      <ListImageDetail data={data?.relatedProducts || []} />
       <Header
         goBack={handleGoBack}
         customBack={renderBackIcon}
@@ -188,10 +309,13 @@ const ProductDetail = () => {
         borderTopRightRadius={30}
         borderTopLeftRadius={30}
         paddingHorizontal={sizes.horizontal}
-        paddingVertical={36}
+        paddingVertical={10}
       >
         {renderBtnControl()}
-        <ScrollView>
+        {renderTotalQuantity()}
+        <ScrollView
+          refreshControl={<RefreshControl refreshing={isRefresh} onRefresh={onRefreshData} />}
+        >
           {renderInfoShoes()}
           {renderSizes()}
           {renderDescription()}
