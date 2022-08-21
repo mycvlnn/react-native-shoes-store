@@ -62,6 +62,10 @@ export const toogleFavoriteProductItem: (
   } catch (error) {
     const err = error as AxiosError
 
+    if (err.response?.status === STATUS.UNAUTHORIZED) {
+      return { statusCode: err.response?.status, content: '', message: 'Unauthorized' }
+    }
+
     throw err
   }
 }

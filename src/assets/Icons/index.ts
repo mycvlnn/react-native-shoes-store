@@ -20,6 +20,7 @@ import PlusIcon from './PlusIcon'
 import MinusIcon from './MinusPlus'
 import StarIcon from './StarIcon'
 import ErrorServerIcon from './ErrorServerIcon'
+import XMarkIcon from './XMarkIcon'
 
 export {
   HomeOutlineIcon,
@@ -44,4 +45,5 @@ export {
   MinusIcon,
   StarIcon,
   ErrorServerIcon,
+  XMarkIcon,
 }

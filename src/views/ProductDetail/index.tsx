@@ -1,4 +1,4 @@
-import { Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
+import { Alert, Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -12,6 +12,8 @@ import { getDetailProductApi, toogleFavoriteProductItem } from '~/services'
 import { IProductDetail } from '~/services/models'
 import { useAppDispatch } from '~/store/hooks'
 import { addToCart } from '~/store/cartSlice'
+import { logoutUser } from '~/store/appUserSlice'
+import Unauthorized from '~/components/Popup/Unauthorized'
 
 export const MAX_QUANTITY = 99
 export const MIN_QUANTITY = 1
@@ -24,6 +26,7 @@ const ProductDetail = () => {
   const [data, setData] = useState<IProductDetail>()
   const [isRefresh, setIsRefresh] = useState<boolean>(false)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [visibleModal, setVisibleModal] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const [totalQuantity, setTotalQuantity] = useState(0)
 
@@ -39,7 +42,10 @@ const ProductDetail = () => {
     )
   }
 
-  // TODO: Cần phải xử lý thêm trường hợp chưa đăng nhập
+  const handleLogin = () => {
+    dispatch(logoutUser())
+  }
+
   const toggleFavoriteItem = async () => {
     try {
       const id = params.id
@@ -48,6 +54,8 @@ const ProductDetail = () => {
 
       if (statusCode === STATUS.SUCCESS_NUM) {
         setIsFavorite(!isFavorite)
+      } else if (statusCode === STATUS.UNAUTHORIZED) {
+        setVisibleModal(true)
       }
     } catch (error) {
       // nothing
@@ -288,6 +296,10 @@ const ProductDetail = () => {
     void getDetailProduct()
   }
 
+  const handleCloseModal = () => {
+    setVisibleModal(false)
+  }
+
   return (
     <Box flex={1}>
       <ListImageDetail data={data?.relatedProducts || []} />
@@ -321,6 +333,9 @@ const ProductDetail = () => {
           {renderDescription()}
         </ScrollView>
         <Box marginBottom={20}>{renderBtnAddToCart()}</Box>
+      </Box>
+      <Box>
+        <Unauthorized isVisible={visibleModal} onCloseModal={handleCloseModal} />
       </Box>
     </Box>
   )
