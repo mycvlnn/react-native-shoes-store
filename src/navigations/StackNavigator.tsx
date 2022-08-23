@@ -13,6 +13,7 @@ import Location from '~/views/Setting/views/Location'
 import { Loading } from '~/components'
 import Authen from '~views/Auth'
 import { appUserSelector } from '~/store/appUserSlice/selector'
+import Checkout from '~/views/Checkout'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -48,7 +49,12 @@ const StackNavigator = () => {
           <Stack.Screen name="Language" component={Language} />
 
           <Stack.Screen name="Location" component={Location} />
-          <Stack.Screen name="YourCart" component={YourCart} />
+          <Stack.Screen name="YourCart" component={YourCart} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="Checkout"
+            component={Checkout}
+            options={{ headerShown: false, presentation: 'modal' }}
+          />
           <Stack.Screen name="EditProfile" component={EditProfile} />
         </>
       ) : (

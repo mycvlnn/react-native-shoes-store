@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Header, Typography } from '~/components'
+import { BadgeNotification, Box, Header, Typography } from '~/components'
 import { Pressable, ScrollView, StyleSheet } from 'react-native'
 
-import { useAppDispatch } from '~/store/hooks'
+import { useAppSelector } from '~/store/hooks'
 
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -15,10 +15,11 @@ import { getAllCategory, getAllStore, getProductByCategoryId } from '~/services'
 import { ICategory, IProductDetail, IStore } from '~/services/models'
 import ProductItem from './components/ProductItem'
 import ItemStore from './components/ItemStore'
+import { hasCart } from '~/store/cartSlice/selector'
 
 const Home = () => {
   const navigation = useNavigation()
-  const dispatch = useAppDispatch()
+  const isCart = useAppSelector(hasCart)
 
   const [idActiveCategory, setIdActiveCategory] = useState('')
   const [categories, setCategories] = useState<ICategory[]>([])
@@ -54,9 +55,12 @@ const Home = () => {
 
   const renderBagIcon = () => {
     return (
-      <BoxShadow>
-        <BagRegular size={24} />
-      </BoxShadow>
+      <Pressable onPress={() => navigation.navigate('YourCart')}>
+        <BoxShadow>
+          <BagRegular size={24} />
+          <BadgeNotification isShow={isCart} right={8} top={8} />
+        </BoxShadow>
+      </Pressable>
     )
   }
 

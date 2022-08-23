@@ -5,5 +5,6 @@ import { getAllCategory } from './products/categoryService'
 export * from './products/storeService'
 export * from './products/productService'
 export * from './users/favoriteService'
+export * from './users/orderService'
 
 export { signUp, signIn, getListBanner, getAllCategory }

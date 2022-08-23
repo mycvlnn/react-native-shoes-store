@@ -7,6 +7,11 @@ interface IState {
   data: ICartItem[]
 }
 
+interface IControlQuantity {
+  controlNumber: number
+  primaryKey: string
+}
+
 const initialState: IState = {
   data: [],
 }
@@ -25,10 +30,22 @@ export const cartSlice = createSlice({
         state.data.push(action.payload)
       }
     },
+    controlQuantity: (state, action: PayloadAction<IControlQuantity>) => {
+      const { primaryKey, controlNumber } = action.payload
+      const currentItemCart = state.data.find((itemCart) => itemCart.primaryKey === primaryKey)
+      if (currentItemCart) {
+        currentItemCart.quantity += controlNumber
+      }
+    },
+    removeItem: (state, action: PayloadAction<{ primaryKey: string }>) => {
+      state.data = state.data.filter(
+        (cartItem) => cartItem.primaryKey !== action.payload.primaryKey,
+      )
+    },
     clearCart: () => initialState,
   },
 })
 
-export const { addToCart, clearCart } = cartSlice.actions
+export const { addToCart, clearCart, controlQuantity, removeItem } = cartSlice.actions
 
 export default cartSlice.reducer
