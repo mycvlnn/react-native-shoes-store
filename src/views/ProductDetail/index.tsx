@@ -1,4 +1,4 @@
-import { Alert, Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
+import { Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -12,7 +12,6 @@ import { getDetailProductApi, toogleFavoriteProductItem } from '~/services'
 import { IProductDetail } from '~/services/models'
 import { useAppDispatch } from '~/store/hooks'
 import { addToCart } from '~/store/cartSlice'
-import { logoutUser } from '~/store/appUserSlice'
 import Unauthorized from '~/components/Popup/Unauthorized'
 
 export const MAX_QUANTITY = 99
@@ -40,10 +39,6 @@ const ProductDetail = () => {
         <ChevronBigLeft width={18} height={18} color="#000" />
       </BoxShadow>
     )
-  }
-
-  const handleLogin = () => {
-    dispatch(logoutUser())
   }
 
   const toggleFavoriteItem = async () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, StyleSheet } from 'react-native'
+import { Pressable } from 'react-native'
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ArrowBackIcon } from '~/assets/icons'
@@ -51,7 +51,7 @@ const Header: React.FC<IProps> = ({
     if (!goBack) return <Box width={10} height={10} />
 
     return (
-      <Pressable onPress={goBack}>
+      <Pressable onPress={goBack} hitSlop={20}>
         {customBack ? customBack() : <ArrowBackIcon color={color} />}
       </Pressable>
     )

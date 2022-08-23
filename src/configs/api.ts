@@ -5,6 +5,7 @@ export const SIGN_IN = 'Users/signin'
 export const GET_LIST_PRODUCT_FAVORITE = 'Users/getproductfavorite'
 export const FAVORITE_PRODUCT_ITEM = 'Users/like'
 export const UNFAVORITE_PRODUCT_ITEM = 'Users/unlike'
+export const ORDER_ITEM = 'Users/order'
 
 //==================PRODUCT==================//
 

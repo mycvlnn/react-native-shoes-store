@@ -15,4 +15,5 @@ export const disabledColor = '#CECECE'
 export const defaultColors = {
   black: '#1a1917',
   gray: '#888888',
+  background: '#e3e4e9',
 }

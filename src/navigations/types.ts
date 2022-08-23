@@ -31,6 +31,9 @@ export type RootStackParamList = {
   EditProfile: undefined
   Language: undefined
   YourCart: undefined
+  Checkout: {
+    success: boolean
+  }
   NotFound: undefined
   Authen: NavigatorScreenParams<AuthenTabParamList>
 }

@@ -21,6 +21,10 @@ import MinusIcon from './MinusPlus'
 import StarIcon from './StarIcon'
 import ErrorServerIcon from './ErrorServerIcon'
 import XMarkIcon from './XMarkIcon'
+import TrashIcon from './TrashIcon'
+import TickGradient from './TickGradient'
+import CloseGradientIcon from './CloseGradient'
+import PolygonIcon from './Polygon'
 
 export {
   HomeOutlineIcon,
@@ -46,4 +50,8 @@ export {
   StarIcon,
   ErrorServerIcon,
   XMarkIcon,
+  TrashIcon,
+  TickGradient,
+  CloseGradientIcon,
+  PolygonIcon,
 }
