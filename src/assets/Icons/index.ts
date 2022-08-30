@@ -25,6 +25,10 @@ import TrashIcon from './TrashIcon'
 import TickGradient from './TickGradient'
 import CloseGradientIcon from './CloseGradient'
 import PolygonIcon from './Polygon'
+import LineGradient from './LineGradient'
+import SearchGradientIcon from './SearchGradientIcon'
+import CloseCircleIcon from './CloseCircleIcon'
+import ArrowTopIcon from './arrow/ArrowTop'
 
 export {
   HomeOutlineIcon,
@@ -54,4 +58,8 @@ export {
   TickGradient,
   CloseGradientIcon,
   PolygonIcon,
+  LineGradient,
+  SearchGradientIcon,
+  CloseCircleIcon,
+  ArrowTopIcon,
 }

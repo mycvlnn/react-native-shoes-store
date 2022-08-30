@@ -28,7 +28,7 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen
         name="Search"
         component={Search}
-        options={{ tabBarIcon: ({ color }) => <SearchIcon color={color} /> }}
+        options={{ tabBarIcon: ({ color }) => <SearchIcon color={color} />, headerShown: false }}
       />
       <BottomTab.Screen
         name="Favorite"

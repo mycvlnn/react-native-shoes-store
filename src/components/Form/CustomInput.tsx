@@ -1,5 +1,6 @@
 import {
   NativeSyntheticEvent,
+  StyleProp,
   StyleSheet,
   TextInput,
   TextInputFocusEventData,
@@ -24,57 +25,63 @@ interface CustomInputProps extends TextInputProps {
   containerStyle?: ViewStyle
   onChangeText?: (text: string) => void
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  inputStyle?: StyleProp<TextStyle>
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
-  label,
-  value,
-  backgroundColor = '#fff',
-  radius = 10,
-  isRequired,
-  leftIcon,
-  rightIcon,
-  error,
-  labelStyle,
-  containerStyle,
-  onChangeText,
-  onBlur,
-  ...passProps
-}) => {
-  return (
-    <Box>
-      {label && (
-        <Typography marginBottom={8} fontSize={16} {...labelStyle}>
-          {label} {isRequired && <Typography color="red">*</Typography>}
-        </Typography>
-      )}
-      <Box
-        flexDirection="row"
-        alignItems="center"
-        borderRadius={radius}
-        style={[styles.containerInput, containerStyle]}
-        backgroundColor={backgroundColor}
-      >
-        <Box marginRight={8}>{leftIcon}</Box>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          onBlur={onBlur}
-          value={value}
-          {...passProps}
-        />
-        <Box marginHorizontal={8}>{rightIcon}</Box>
+export const CustomInput = React.forwardRef<TextInput, CustomInputProps>(
+  (
+    {
+      label,
+      value,
+      backgroundColor = '#fff',
+      radius = 10,
+      isRequired,
+      leftIcon,
+      rightIcon,
+      error,
+      labelStyle,
+      containerStyle,
+      inputStyle,
+      onChangeText,
+      onBlur,
+      ...passProps
+    },
+    ref,
+  ) => {
+    return (
+      <Box>
+        {label && (
+          <Typography marginBottom={8} fontSize={16} {...labelStyle}>
+            {label} {isRequired && <Typography color="red">*</Typography>}
+          </Typography>
+        )}
+        <Box
+          flexDirection="row"
+          alignItems="center"
+          borderRadius={radius}
+          style={[styles.containerInput, containerStyle]}
+          backgroundColor={backgroundColor}
+        >
+          <Box marginRight={8}>{leftIcon}</Box>
+          <TextInput
+            ref={ref}
+            style={[styles.input, inputStyle]}
+            onChangeText={onChangeText}
+            onBlur={onBlur}
+            value={value}
+            {...passProps}
+          />
+          <Box marginHorizontal={8}>{rightIcon}</Box>
+        </Box>
+        {error && (
+          <Typography color="red" marginTop={4}>
+            {error}
+          </Typography>
+        )}
       </Box>
-      {error && (
-        <Typography color="red" marginTop={4}>
-          {error}
-        </Typography>
-      )}
-    </Box>
-  )
-}
-
-export default CustomInput
+    )
+  },
+)
 
 const styles = StyleSheet.create({
   containerInput: {

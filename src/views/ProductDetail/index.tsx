@@ -1,4 +1,4 @@
-import { Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
+import { Pressable, RefreshControl, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -8,7 +8,7 @@ import BoxShadow from '../Home/components/BoxShadow'
 import { ChevronBigLeft, FavoriteOutline, MinusIcon, PlusIcon, StarIcon } from '~/assets/icons'
 import ListImageDetail from './components/ListImageDetail'
 import { RootStackRouteProps } from '~/navigations/types'
-import { getDetailProductApi, toogleFavoriteProductItem } from '~/services'
+import { getDetailProductApi, toggleFavoriteProductItem } from '~/services'
 import { IProductDetail } from '~/services/models'
 import { useAppDispatch } from '~/store/hooks'
 import { addToCart } from '~/store/cartSlice'
@@ -45,7 +45,7 @@ const ProductDetail = () => {
     try {
       const id = params.id
 
-      const { statusCode } = await toogleFavoriteProductItem(id, !isFavorite)
+      const { statusCode } = await toggleFavoriteProductItem(id, !isFavorite)
 
       if (statusCode === STATUS.SUCCESS_NUM) {
         setIsFavorite(!isFavorite)
@@ -337,5 +337,3 @@ const ProductDetail = () => {
 }
 
 export default ProductDetail
-
-const styles = StyleSheet.create({})
