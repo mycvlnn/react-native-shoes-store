@@ -43,7 +43,7 @@ export const checkFavoriteProductById: (id: string | number) => Promise<boolean>
 }
 
 // Hàm favorite | unfavorite  một product item
-export const toogleFavoriteProductItem: (
+export const toggleFavoriteProductItem: (
   id: string | number,
   isLike: boolean,
 ) => Promise<IResponseBase<string>> = async (id: string | number, isLike: boolean) => {
