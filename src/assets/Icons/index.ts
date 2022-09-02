@@ -29,6 +29,8 @@ import LineGradient from './LineGradient'
 import SearchGradientIcon from './SearchGradientIcon'
 import CloseCircleIcon from './CloseCircleIcon'
 import ArrowTopIcon from './arrow/ArrowTop'
+import TrashThinIcon from './TrashThinIcon'
+import EmptyBoxIcon from './EmptyBoxIcon'
 
 export {
   HomeOutlineIcon,
@@ -62,4 +64,6 @@ export {
   SearchGradientIcon,
   CloseCircleIcon,
   ArrowTopIcon,
+  TrashThinIcon,
+  EmptyBoxIcon,
 }
