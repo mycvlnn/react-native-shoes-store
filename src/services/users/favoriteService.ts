@@ -20,6 +20,12 @@ export const getListProductFavorite: () => Promise<
   } catch (error) {
     const err = error as AxiosError
 
+    if (err.response?.status === STATUS.UNAUTHORIZED || !err.response?.status) {
+      return {
+        statusCode: STATUS.UNAUTHORIZED,
+      }
+    }
+
     throw err
   }
 }

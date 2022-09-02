@@ -33,7 +33,10 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen
         name="Favorite"
         component={Favorites}
-        options={{ tabBarIcon: ({ color }) => <FavoriteOutline color={color} /> }}
+        options={{
+          tabBarIcon: ({ color }) => <FavoriteOutline color={color} />,
+          headerShown: false,
+        }}
       />
       <BottomTab.Screen
         name="Setting"

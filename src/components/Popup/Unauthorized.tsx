@@ -18,7 +18,9 @@ const Unauthorized: React.FC<IProps> = ({ isVisible, onCloseModal = () => {} }) 
 
   const handleLogin = () => {
     onCloseModal()
-    dispatch(logoutUser())
+    setTimeout(() => {
+      dispatch(logoutUser())
+    }, 500)
   }
 
   return (
