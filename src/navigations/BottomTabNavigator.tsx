@@ -16,6 +16,7 @@ const BottomTabNavigator = () => {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{ tabBarActiveTintColor: tabBarActiveTintColor }}
+      backBehavior="history"
     >
       <BottomTab.Screen
         name="Home"
@@ -41,7 +42,7 @@ const BottomTabNavigator = () => {
       <BottomTab.Screen
         name="Setting"
         component={Setting}
-        options={{ tabBarIcon: ({ color }) => <MenuBarIcon color={color} /> }}
+        options={{ tabBarIcon: ({ color }) => <MenuBarIcon color={color} />, headerShown: false }}
       />
     </BottomTab.Navigator>
   )

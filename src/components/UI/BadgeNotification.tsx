@@ -8,14 +8,22 @@ interface IProps {
   right?: number
   left?: number
   bottom?: number
+  position?: 'absolute' | 'relative'
 }
 
-const BadgeNotification: React.FC<IProps> = ({ isShow, top, left, right, bottom }) => {
+const BadgeNotification: React.FC<IProps> = ({
+  isShow,
+  top,
+  left,
+  right,
+  bottom,
+  position = 'absolute',
+}) => {
   if (!isShow) return null
 
   return (
     <Box
-      position="absolute"
+      position={position}
       right={right}
       top={top}
       left={left}

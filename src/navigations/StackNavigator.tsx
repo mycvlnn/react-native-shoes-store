@@ -14,6 +14,9 @@ import { Loading } from '~/components'
 import Authen from '~views/Auth'
 import { appUserSelector } from '~/store/appUserSlice/selector'
 import Checkout from '~/views/Checkout'
+import Notifications from '~/views/Notifications'
+import Address from '~/views/Address'
+import TermAndCondition from '~/views/TermAndCondition'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -56,6 +59,9 @@ const StackNavigator = () => {
             options={{ headerShown: false, presentation: 'modal' }}
           />
           <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen name="Address" component={Address} />
+          <Stack.Screen name="TermAndCondition" component={TermAndCondition} />
         </>
       ) : (
         <Stack.Screen name="Authen" component={Authen} options={{ headerShown: false }} />
