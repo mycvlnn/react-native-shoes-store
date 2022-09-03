@@ -31,6 +31,12 @@ import CloseCircleIcon from './CloseCircleIcon'
 import ArrowTopIcon from './arrow/ArrowTop'
 import TrashThinIcon from './TrashThinIcon'
 import EmptyBoxIcon from './EmptyBoxIcon'
+import UserThin from './users/UserThin'
+import WishlistsIcon from './WishlistsIcon'
+import BellOutline from './BellOutlineIcon'
+import LocationOutline from './LocationOutline'
+import SettingLanguageIcon from './SettingLanguages'
+import TermIcon from './TermIcon'
 
 export {
   HomeOutlineIcon,
@@ -66,4 +72,10 @@ export {
   ArrowTopIcon,
   TrashThinIcon,
   EmptyBoxIcon,
+  UserThin,
+  WishlistsIcon,
+  BellOutline,
+  LocationOutline,
+  SettingLanguageIcon,
+  TermIcon,
 }

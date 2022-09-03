@@ -29,7 +29,10 @@ export type RootStackParamList = {
   ProductDetail: { id: string | number }
   Location: undefined
   EditProfile: undefined
+  Notifications: undefined
+  Address: undefined
   Language: undefined
+  TermAndCondition: undefined
   YourCart: undefined
   Checkout: {
     success: boolean

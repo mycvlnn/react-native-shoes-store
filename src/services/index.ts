@@ -7,5 +7,6 @@ export * from './products/productService'
 export * from './users/favoriteService'
 export * from './users/orderService'
 export * from './products/searchService'
+export * from './users/userService'
 
 export { signUp, signIn, getListBanner, getAllCategory }
