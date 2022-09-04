@@ -23,6 +23,7 @@ interface IProps {
   color?: string
   position?: 'relative' | 'absolute'
   width?: string | number
+  height?: number
   backgroundColor?: string
   iconBackColor?: string
   zIndex?: number
@@ -40,6 +41,7 @@ const Header: React.FC<IProps> = ({
   zIndex = 1,
   width = '100%',
   position = 'relative',
+  height = 60,
   goBack,
   customBack,
   customRight,
@@ -83,6 +85,7 @@ const Header: React.FC<IProps> = ({
       paddingHorizontal={sizes.horizontal}
       paddingTop={insets.top}
       paddingBottom={insets.top / 2}
+      height={height}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"

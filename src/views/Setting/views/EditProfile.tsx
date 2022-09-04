@@ -300,8 +300,8 @@ const EditProfile = () => {
     return (
       <>
         {renderAvatar()}
-        <Box marginHorizontal={sizes.horizontal} marginTop={20}>
-          <ScrollView contentContainerStyle={{ paddingBottom: '10%' }}>
+        <Box marginHorizontal={sizes.horizontal} marginTop={20} flex={1}>
+          <ScrollView scrollEnabled contentContainerStyle={{ paddingBottom: '10%' }}>
             {renderName()}
             {renderEmail()}
             {renderPassword()}

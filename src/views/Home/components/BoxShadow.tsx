@@ -15,6 +15,7 @@ const BoxShadow: React.FC<Props> = ({ children }) => {
       shadowOffset={{ width: 2, height: 4 }}
       shadowOpacity={0.2}
       shadowRadius={4}
+      elevation={4}
     >
       {children}
     </Box>
