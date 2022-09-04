@@ -58,7 +58,11 @@ const StackNavigator = () => {
             component={Checkout}
             options={{ headerShown: false, presentation: 'modal' }}
           />
-          <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Address" component={Address} />
           <Stack.Screen name="TermAndCondition" component={TermAndCondition} />

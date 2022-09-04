@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   containerInput: {
     height: 58,
     padding: 10,
-
     backgroundColor: '#FFFFFF',
   },
   input: {
