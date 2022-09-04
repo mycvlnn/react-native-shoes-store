@@ -26,3 +26,11 @@ export interface IUserProfile {
   deleted: boolean
   avatar: string
 }
+
+export interface IDataUpdateProfile {
+  email: string
+  name?: string
+  password?: string
+  gender?: boolean
+  phone?: string
+}

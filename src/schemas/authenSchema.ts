@@ -9,13 +9,13 @@ const { requirePassword, requirePasswordConfirmation } = messageAuthen
 export const emailPattern = yup
   .string()
   .email('Please enter valid email')
-  .required('Email Address is Required')
+  .required('Email address is required')
 
 export const passwordPattern = yup
   .string()
   .min(8, ({ min }) => `Password is too short - should be ${min} chars minimum.`)
   .max(20, ({ max }) => `Password is too long - should be ${max} chars maximum.`)
-  .required(requirePassword)
+
 // .matches(
 //   /^(?=.*\d)(?=.*[a-zA-Z]).{8,20}$/,
 //   'Password must contain at least 1 letters, 1 upper case letter, 1 number and 1 special character',
@@ -33,6 +33,8 @@ export const nameUserPattern = yup
   .max(20, messageAuthen.nameUser)
   .required(messageAuthen.required)
 
+export const genderPattern = yup.boolean().required(messageAuthen.gender)
+
 export const signInValidation = yup.object().shape({
   email: emailPattern,
   password: passwordPattern,
@@ -40,8 +42,23 @@ export const signInValidation = yup.object().shape({
 
 export const signUpValidation = yup.object().shape({
   email: emailPattern,
-  password: passwordPattern,
+  password: passwordPattern.required(requirePassword),
   passwordConfirmation: passwordConfirmPattern,
   name: nameUserPattern,
-  gender: yup.boolean().required(messageAuthen.gender),
+  gender: genderPattern,
+})
+
+export const updateProfileSchema = yup.object().shape({
+  email: emailPattern,
+  password: passwordPattern,
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref('password')], messageAuthen.passwordConfirmation)
+    .when('password', {
+      is: (password: string) => (password ? true : false),
+      then: yup.string().required(requirePasswordConfirmation),
+      otherwise: yup.string().notRequired(),
+    }),
+  name: nameUserPattern,
+  gender: genderPattern,
 })

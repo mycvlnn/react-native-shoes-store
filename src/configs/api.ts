@@ -7,6 +7,8 @@ export const FAVORITE_PRODUCT_ITEM = 'Users/like'
 export const UNFAVORITE_PRODUCT_ITEM = 'Users/unlike'
 export const ORDER_ITEM = 'Users/order'
 export const GET_INFO_USER = 'Users/getProfile'
+export const UPDATE_PROFILE = 'Users/updateProfile'
+export const CHANGE_PASSWORD = 'Users/changePassword'
 
 //==================PRODUCT==================//
 
