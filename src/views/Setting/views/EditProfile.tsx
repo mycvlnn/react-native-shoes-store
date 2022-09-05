@@ -1,7 +1,16 @@
-import { Image, Pressable, ScrollView, StyleSheet } from 'react-native'
+import { Image, Keyboard, Platform, Pressable, ScrollView, StyleSheet } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, CustomInput, ErrorServer, Header, Loading, Typography } from '~/components'
-import { defaultColors, fallbackImage, primaryBold, primaryColor, sizes, STATUS } from '~/constants'
+import {
+  defaultColors,
+  fallbackImage,
+  permissionType,
+  primaryBold,
+  primaryColor,
+  sizes,
+  STATUS,
+} from '~/constants'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useFormik } from 'formik'
 import { updateProfileSchema } from '~/schemas'
@@ -9,15 +18,32 @@ import { EmailIcon, EyeIcon, EyeIconSlash, LockIcon, UserSolid } from '~/assets/
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { changePassword, getInfoUser, updateInfoUser } from '~/services'
 import Unauthorized from '~/components/Popup/Unauthorized'
+import PopupImagePicker from '~/components/Popup/PopupImagePicker'
+import PopupOpenSettingDevice from '~/components/Popup/PopupOpenSettingDevice'
+import {
+  checkAndRequestCameraPermission,
+  checkAndRequestLibraryPermission,
+  validateFileSize,
+} from '~/utils'
+import { RESULTS, openSettings } from 'react-native-permissions'
+import type { CameraOptions, ImageLibraryOptions } from 'react-native-image-picker'
+import * as ImagePicker from 'react-native-image-picker'
+import { FileImage } from '~/models'
 
 const EditProfile = () => {
+  const { t } = useTranslation()
   const navigation = useNavigation()
   const [togglePassword, setTogglePassword] = useState(true)
   const [isFetchError, setIsFetchError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visibleModal, setVisibleModal] = useState(false)
+  const [showPopupMedia, setShowPopupMedia] = useState(false)
+  const [showPopupSetting, setShowPopupSetting] = useState(false)
   const [messageError, setMessageError] = useState<string>('')
   const [messageErrorPassword, setMessageErrorPassword] = useState<string>('')
+  const [typePermission, setTypePermission] = useState('')
+  const [fileImage, setFileImage] = useState<FileImage>()
+  const [errorImage, setErrorImage] = useState(false)
 
   const isMounted = useIsFocused()
 
@@ -81,28 +107,39 @@ const EditProfile = () => {
   }
 
   const handleChoosePicture = () => {
-    // TODO:
+    Keyboard.dismiss()
+    setShowPopupMedia(true)
   }
 
   const renderBtnChoosePicture = () => {
     return (
-      <Box marginTop={18}>
+      <Box marginTop={10}>
         <Pressable onPress={handleChoosePicture}>
-          <Typography color={primaryColor} fontSize={20} fontWeight="600">
-            Add a profile pic
+          <Typography color={primaryColor} fontSize={18} fontWeight="600">
+            Update profile picture
           </Typography>
         </Pressable>
       </Box>
     )
   }
 
-  const renderAvatar = () => {
+  const renderMessageErrorAvatar = () => {
+    if (!errorImage) return null
+
     return (
-      <Box alignSelf="center">
-        <Image
-          source={{ uri: values.avatar }}
-          style={{ width: 150, height: 150, borderRadius: 1000 }}
-        />
+      <Typography color="red" textAlign="center" marginTop={4}>
+        {t('media.errorImage')}
+      </Typography>
+    )
+  }
+
+  const renderAvatar = () => {
+    const uri = fileImage ? fileImage.uri : values.avatar
+
+    return (
+      <Box alignItems="center">
+        <Image source={{ uri }} style={{ width: 150, height: 150, borderRadius: 1000 }} />
+        {renderMessageErrorAvatar()}
         {renderBtnChoosePicture()}
       </Box>
     )
@@ -320,6 +357,98 @@ const EditProfile = () => {
     return <Unauthorized isVisible={visibleModal} onCloseModal={() => setVisibleModal(false)} />
   }
 
+  const optionLibrary: ImageLibraryOptions = {
+    mediaType: 'photo',
+    quality: 0.8,
+  }
+
+  // hàm xử lý response khi chọn camera hoặc chọn ảnh
+  const handleResponseMedia = (response: ImagePicker.ImagePickerResponse) => {
+    setShowPopupMedia(false)
+    if (response && !response.didCancel && !response.errorCode && response.assets) {
+      const mediaResponse = response.assets[0]
+      if (validateFileSize(mediaResponse.fileSize)) {
+        setErrorImage(false)
+        setFileImage({
+          name: mediaResponse.fileName,
+          uri:
+            Platform.OS === 'android'
+              ? mediaResponse.uri
+              : mediaResponse.uri?.replace('file://', ''), // trên android thì không cần file://
+          type: mediaResponse.type,
+        })
+      } else {
+        setErrorImage(true)
+      }
+    }
+  }
+
+  /** func mở popup xác nhận mở setting phone để cấp quyền */
+  const showPopupConfirmOpenSetting = (type?: string) => {
+    setTypePermission(type || '')
+    setShowPopupSetting(true)
+  }
+
+  const handleOpenCamera = async () => {
+    Keyboard.dismiss()
+    const checkPermissionCamera = await checkAndRequestCameraPermission()
+    if (checkPermissionCamera === RESULTS.BLOCKED) {
+      showPopupConfirmOpenSetting(permissionType.camera)
+    } else {
+      const response = await ImagePicker.launchCamera(optionLibrary)
+      handleResponseMedia(response)
+    }
+  }
+
+  const handleOpenGallery = async () => {
+    Keyboard.dismiss()
+    // Xử lý check quền sau đó chọn ảnh mong muốn
+    const checkPermissionLibrary = await checkAndRequestLibraryPermission()
+    // Truờng hợp không có quền quền => mở popup cấp quền quền
+    if (checkPermissionLibrary === RESULTS.BLOCKED) {
+      showPopupConfirmOpenSetting(permissionType.library)
+    } else {
+      // Trong trường hợp có quền => lưu lại state ảnh phục vụ cho việc render ra ui và  gửi lên server
+      const response = await ImagePicker.launchImageLibrary(optionLibrary)
+      handleResponseMedia(response)
+    }
+  }
+
+  const renderPopupOptionsMedia = () => {
+    return (
+      <PopupImagePicker
+        isVisible={showPopupMedia}
+        onCloseModal={() => setShowPopupMedia(false)}
+        onPressCamera={() => void handleOpenCamera()}
+        onPressGallery={() => void handleOpenGallery()}
+      />
+    )
+  }
+
+  const handleOpenSettingDevice = () => {
+    setShowPopupSetting(false)
+    setTypePermission('')
+    void openSettings()
+  }
+
+  const handleCancelOpenSetting = () => {
+    setShowPopupSetting(false)
+    setTypePermission('')
+  }
+
+  // hiển thị cho phép truy cập setting để cấp quền hay không
+  const renderPopupPermission = () => {
+    return (
+      <PopupOpenSettingDevice
+        isVisible={showPopupSetting}
+        onCancel={handleCancelOpenSetting}
+        onClosePopup={() => setShowPopupSetting(false)}
+        onOpenSetting={handleOpenSettingDevice}
+        title={typePermission && t(`media.${typePermission}`)}
+      />
+    )
+  }
+
   return (
     <Box backgroundColor="white" flex={1}>
       <Header
@@ -331,6 +460,8 @@ const EditProfile = () => {
       />
       {renderContent()}
       {renderPopupUnauthorized()}
+      {renderPopupOptionsMedia()}
+      {renderPopupPermission()}
     </Box>
   )
 }

@@ -37,6 +37,8 @@ import BellOutline from './BellOutlineIcon'
 import LocationOutline from './LocationOutline'
 import SettingLanguageIcon from './SettingLanguages'
 import TermIcon from './TermIcon'
+import CameraIcon from './CameraIcon'
+import PictureIcon from './PictureIcon'
 
 export {
   HomeOutlineIcon,
@@ -78,4 +80,6 @@ export {
   LocationOutline,
   SettingLanguageIcon,
   TermIcon,
+  CameraIcon,
+  PictureIcon,
 }
