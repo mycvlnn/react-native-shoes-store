@@ -13,29 +13,26 @@ import {
   WishlistsIcon,
   XMarkIcon,
 } from '~/assets/icons'
-import { primaryColor, sizes, STATUS } from '~/constants'
+import { fallbackImage, primaryColor, sizes, STATUS } from '~/constants'
 import ItemMenu from './components/ItemMenu'
 import PopupLogout from '~/components/Popup/PopupLogout'
 import { getInfoUser } from '~/services'
+import { appUserSelector } from '~/store/appUserSlice/selector'
+import { useAppSelector } from '~/store/hooks'
 
 const Setting = () => {
   const navigation = useNavigation()
   const insets = useSafeAreaInsets()
+  const { avatar } = useAppSelector(appUserSelector)
   const [showPopupLogout, setShowPopupLogout] = useState(false)
-  const [dataUser, setDataUser] = useState({
-    avatar: 'https://picsum.photos/500',
-    name: 'Hello there!',
-  })
+  const [nameUser, setNameUser] = useState('Hello there!')
   const isMounted = useIsFocused()
 
   const getInfoUserApi = useCallback(async () => {
     try {
       const { statusCode, content } = await getInfoUser()
       if (statusCode === STATUS.SUCCESS_NUM) {
-        setDataUser({
-          avatar: content?.avatar || '',
-          name: content?.name || '',
-        })
+        setNameUser(content?.name || '')
       }
     } catch (error) {
       // nothing
@@ -54,7 +51,7 @@ const Setting = () => {
 
   const renderCloseBtn = () => {
     return (
-      <Pressable onPress={handleGoback} style={{ position: 'absolute', top: '12%', right: '14%' }}>
+      <Pressable onPress={handleGoback} style={{ position: 'absolute', top: '10%', right: '14%' }}>
         <XMarkIcon size={18} />
       </Pressable>
     )
@@ -64,11 +61,8 @@ const Setting = () => {
     return (
       <Box alignSelf="center">
         <Image
-          source={{ uri: dataUser.avatar }}
+          source={{ uri: avatar || fallbackImage }}
           style={{ width: 150, height: 150, borderRadius: 1000 }}
-          onError={() => {
-            setDataUser((prev) => ({ ...prev, avatar: 'https://picsum.photos/500' }))
-          }}
         />
       </Box>
     )
@@ -84,7 +78,7 @@ const Setting = () => {
         lineHeight={40}
         marginBottom={8}
       >
-        {dataUser.name}
+        {nameUser}
       </Typography>
     )
   }

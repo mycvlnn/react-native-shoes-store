@@ -16,6 +16,7 @@ const initialState: AppUserState = {
   email: '',
   phone: '',
   isLogin: false,
+  avatar: '',
 }
 
 export const appUserSlice = createSlice({

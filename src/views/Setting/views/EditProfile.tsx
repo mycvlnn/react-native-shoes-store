@@ -1,4 +1,4 @@
-import { Image, Keyboard, Platform, Pressable, ScrollView, StyleSheet } from 'react-native'
+import { Image, Keyboard, Platform, Pressable, ScrollView } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, CustomInput, ErrorServer, Header, Loading, Typography } from '~/components'
@@ -26,13 +26,17 @@ import {
   validateFileSize,
 } from '~/utils'
 import { RESULTS, openSettings } from 'react-native-permissions'
-import type { CameraOptions, ImageLibraryOptions } from 'react-native-image-picker'
+import type { ImageLibraryOptions } from 'react-native-image-picker'
 import * as ImagePicker from 'react-native-image-picker'
 import { FileImage } from '~/models'
+import { useAppDispatch, useAppSelector } from '~/store/hooks'
+import { saveInfoUser } from '~/store/appUserSlice'
+import { appUserSelector } from '~/store/appUserSlice/selector'
 
 const EditProfile = () => {
   const { t } = useTranslation()
   const navigation = useNavigation()
+  const dispatch = useAppDispatch()
   const [togglePassword, setTogglePassword] = useState(true)
   const [isFetchError, setIsFetchError] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -43,6 +47,7 @@ const EditProfile = () => {
   const [messageErrorPassword, setMessageErrorPassword] = useState<string>('')
   const [typePermission, setTypePermission] = useState('')
   const [fileImage, setFileImage] = useState<FileImage>()
+  const { avatar } = useAppSelector(appUserSelector)
   const [errorImage, setErrorImage] = useState(false)
 
   const isMounted = useIsFocused()
@@ -134,7 +139,7 @@ const EditProfile = () => {
   }
 
   const renderAvatar = () => {
-    const uri = fileImage ? fileImage.uri : values.avatar
+    const uri = fileImage ? fileImage.uri : avatar || fallbackImage
 
     return (
       <Box alignItems="center">
@@ -369,14 +374,17 @@ const EditProfile = () => {
       const mediaResponse = response.assets[0]
       if (validateFileSize(mediaResponse.fileSize)) {
         setErrorImage(false)
+        const uri =
+          Platform.OS === 'android' ? mediaResponse.uri : mediaResponse.uri?.replace('file://', '') // trên android thì không cần file://
         setFileImage({
           name: mediaResponse.fileName,
-          uri:
-            Platform.OS === 'android'
-              ? mediaResponse.uri
-              : mediaResponse.uri?.replace('file://', ''), // trên android thì không cần file://
+          uri,
+
           type: mediaResponse.type,
         })
+
+        // lưu redux
+        dispatch(saveInfoUser({ avatar: uri }))
       } else {
         setErrorImage(true)
       }
