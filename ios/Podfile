@@ -23,6 +23,15 @@ target 'shoes_store' do
     inherit! :complete
     # Pods for testing
   end
+ 
+  # Permission (Cấp quền đối với ios)
+  # Nguồn : https://github.com/zoontek/react-native-permissions#ios
+
+ permissions_path = '../node_modules/react-native-permissions/ios'
+
+ pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+ pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+ pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
 
   # Enables Flipper.
   #
