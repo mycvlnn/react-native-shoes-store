@@ -8,6 +8,7 @@ import { MAX_QUANTITY, MIN_QUANTITY } from '~/views/ProductDetail'
 import { useAppDispatch } from '~/store/hooks'
 import { controlQuantity, removeItem } from '~/store/cartSlice'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const CartItem: React.FC<ICartItem> = ({
   primaryKey,
@@ -39,72 +40,74 @@ const CartItem: React.FC<ICartItem> = ({
   }
 
   return (
-    <Swipeable
-      ref={swipeableRef}
-      friction={2}
-      renderRightActions={(progrees) => {
-        const trans = progrees.interpolate({
-          inputRange: [0, 1],
-          outputRange: [70, -10],
-          extrapolate: 'clamp',
-        })
+    <GestureHandlerRootView>
+      <Swipeable
+        ref={swipeableRef}
+        friction={2}
+        renderRightActions={(progrees) => {
+          const trans = progrees.interpolate({
+            inputRange: [0, 1],
+            outputRange: [70, -10],
+            extrapolate: 'clamp',
+          })
 
-        return (
-          <TouchableOpacity onPress={deleteItemCart}>
-            <Animated.View style={[styles.rightActions, { transform: [{ translateX: trans }] }]}>
-              <TrashIcon />
-            </Animated.View>
-          </TouchableOpacity>
-        )
-      }}
-    >
-      <Box
-        flexDirection="row"
-        backgroundColor="white"
-        borderRadius={10}
-        overflow="hidden"
-        alignItems="center"
-        marginBottom={20}
-        height={140}
+          return (
+            <TouchableOpacity onPress={deleteItemCart}>
+              <Animated.View style={[styles.rightActions, { transform: [{ translateX: trans }] }]}>
+                <TrashIcon />
+              </Animated.View>
+            </TouchableOpacity>
+          )
+        }}
       >
-        <Image source={{ uri: image }} style={styles.image} />
-        <Box flex={1} padding={4}>
-          <Typography fontSize={18} fontWeight="700">
-            {name}
-          </Typography>
-          <Typography numberOfLines={2} width="100%" fontSize={14} fontWeight="500" marginTop={6}>
-            {shortDescription}
-          </Typography>
-          <Box flexDirection="row" marginTop={10} justifyContent="space-between">
-            <Typography fontSize={14} fontWeight="400">
-              Size: {size}
+        <Box
+          flexDirection="row"
+          backgroundColor="white"
+          borderRadius={10}
+          overflow="hidden"
+          alignItems="center"
+          marginBottom={20}
+          height={140}
+        >
+          <Image source={{ uri: image }} style={styles.image} />
+          <Box flex={1} padding={4}>
+            <Typography fontSize={18} fontWeight="700">
+              {name}
             </Typography>
-            <Typography fontWeight="700" fontSize={14}>
-              ${price}
+            <Typography numberOfLines={2} width="100%" fontSize={14} fontWeight="500" marginTop={6}>
+              {shortDescription}
             </Typography>
+            <Box flexDirection="row" marginTop={10} justifyContent="space-between">
+              <Typography fontSize={14} fontWeight="400">
+                Size: {size}
+              </Typography>
+              <Typography fontWeight="700" fontSize={14}>
+                ${price}
+              </Typography>
+            </Box>
+          </Box>
+          <Box alignItems="center">
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.minus}
+              onPress={() => handleControlQuantity(-1)}
+            >
+              <MinusIcon color="black" size={16} />
+            </TouchableOpacity>
+            <Typography fontSize={14} fontWeight="bold">
+              {currentQuantity}
+            </Typography>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.plus}
+              onPress={() => handleControlQuantity(1)}
+            >
+              <PlusIcon color="white" size={16} />
+            </TouchableOpacity>
           </Box>
         </Box>
-        <Box alignItems="center">
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.minus}
-            onPress={() => handleControlQuantity(-1)}
-          >
-            <MinusIcon color="black" size={16} />
-          </TouchableOpacity>
-          <Typography fontSize={14} fontWeight="bold">
-            {currentQuantity}
-          </Typography>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.plus}
-            onPress={() => handleControlQuantity(1)}
-          >
-            <PlusIcon color="white" size={16} />
-          </TouchableOpacity>
-        </Box>
-      </Box>
-    </Swipeable>
+      </Swipeable>
+    </GestureHandlerRootView>
   )
 }
 

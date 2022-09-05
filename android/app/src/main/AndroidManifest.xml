@@ -2,6 +2,16 @@
   package="com.shoes_store">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Bổ sung thêm quền để có thể truy cập vào camera và thư viện ảnh
+      Nguồn: https://github.com/zoontek/react-native-permissions#android
+      Tại sao phải sử dụng uses-feature: https://developer.android.com/guide/topics/manifest/uses-feature-element
+      -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- end -->
 
     <application
       android:name=".MainApplication"

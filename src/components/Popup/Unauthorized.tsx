@@ -32,6 +32,7 @@ const Unauthorized: React.FC<IProps> = ({ isVisible, onCloseModal = () => {} }) 
       isVisible={isVisible}
       swipeDirection="down"
       swipeThreshold={100}
+      propagateSwipe
     >
       <Box
         width="100%"

@@ -10,7 +10,7 @@ import {
 } from '~/components'
 import { defaultColors, sizes, STATUS } from '~/constants'
 import { CloseCircleIcon, LineGradient, SearchGradientIcon, SearchIcon } from '~/assets/icons'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets, initialWindowMetrics } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { useDebounce } from '~/hooks'
 import { searchProduct } from '~/services'
@@ -109,7 +109,7 @@ const Search = () => {
         flexDirection="row"
         alignItems="center"
         paddingHorizontal={sizes.horizontal}
-        paddingTop={insets.top}
+        paddingTop={initialWindowMetrics?.insets.top}
         backgroundColor="white"
       >
         <Box flex={1}>
@@ -123,8 +123,9 @@ const Search = () => {
             containerStyle={{
               borderColor: defaultColors.black,
               borderWidth: 1,
-              height: 50,
               paddingHorizontal: 20,
+              height: 50,
+              paddingVertical: 4,
             }}
             ref={refSearch}
             placeholderTextColor={defaultColors.gray}

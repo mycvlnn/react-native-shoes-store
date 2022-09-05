@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pressable } from 'react-native'
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { initialWindowMetrics, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ArrowBackIcon } from '~/assets/icons'
 import { Box, Typography } from '~/components'
 import { sizes, textColor } from '~/constants'
@@ -23,6 +23,7 @@ interface IProps {
   color?: string
   position?: 'relative' | 'absolute'
   width?: string | number
+  height?: number
   backgroundColor?: string
   iconBackColor?: string
   zIndex?: number
@@ -40,6 +41,7 @@ const Header: React.FC<IProps> = ({
   zIndex = 1,
   width = '100%',
   position = 'relative',
+  height = 100,
   goBack,
   customBack,
   customRight,
@@ -81,8 +83,9 @@ const Header: React.FC<IProps> = ({
       top={0}
       width={width}
       paddingHorizontal={sizes.horizontal}
-      paddingTop={insets.top}
-      paddingBottom={insets.top / 2}
+      paddingTop={insets.top || initialWindowMetrics?.insets.top}
+      paddingBottom={(insets.top || initialWindowMetrics?.insets.top || 0) / 2}
+      height={height}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"
