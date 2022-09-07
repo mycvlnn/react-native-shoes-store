@@ -24,6 +24,7 @@
     "@reduxjs/toolkit": "^1.8.3",
     "@types/redux-logger": "^3.0.9",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.5",
     "deprecated-react-native-prop-types": "^2.2.0",
     "formik": "^2.2.9",
     "i18next": "^21.8.13",

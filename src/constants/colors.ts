@@ -12,6 +12,8 @@ export const colorFacebook = '#1877F2'
 
 export const disabledColor = '#CECECE'
 
+export const pinkBeautiful = '#E75CFF'
+
 export const defaultColors = {
   black: '#1a1917',
   gray: '#888888',

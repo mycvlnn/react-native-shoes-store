@@ -9,6 +9,7 @@ import ErrorServer from './UI/ErrorServer'
 import BadgeNotification from './UI/BadgeNotification'
 import LoadingComponent from './UI/LoadingComponent'
 import ScrollToTop from './UI/ScrollToTop'
+import TextWithLine from './TextWithLine'
 
 export {
   Test,
@@ -22,4 +23,5 @@ export {
   BadgeNotification,
   LoadingComponent,
   ScrollToTop,
+  TextWithLine,
 }

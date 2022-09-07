@@ -24,12 +24,18 @@ export type AuthenTabParamList = {
   SignUp: undefined
 }
 
+export type TopBarOrderHistory = {
+  Ongoing: undefined
+  History: undefined
+}
+
 export type RootStackParamList = {
   BottomTab: NavigatorScreenParams<BottomTabParamList>
   ProductDetail: { id: string | number }
   Location: undefined
   EditProfile: undefined
   Notifications: undefined
+  OrderHistory: NavigatorScreenParams<TopBarOrderHistory>
   Address: undefined
   Language: undefined
   TermAndCondition: undefined
