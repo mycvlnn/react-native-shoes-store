@@ -7,6 +7,7 @@ import { Box, Typography } from '~/components'
 import {
   BellOutline,
   LocationOutline,
+  OrderIcon,
   SettingLanguageIcon,
   TermIcon,
   UserThin,
@@ -90,6 +91,11 @@ const Setting = () => {
           icon={<UserThin />}
           label="Profile"
           onPress={() => navigation.navigate('EditProfile')}
+        />
+        <ItemMenu
+          icon={<OrderIcon />}
+          label="Order history"
+          onPress={() => navigation.navigate('OrderHistory', { screen: 'History' })}
         />
         <ItemMenu
           icon={<WishlistsIcon />}

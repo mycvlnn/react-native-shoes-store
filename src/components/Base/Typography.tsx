@@ -49,6 +49,7 @@ const Typography = React.forwardRef<Text, Props>((props, ref) => {
       ref={ref}
       style={{
         fontFamily: getFontFamilyByFontWeight(),
+        color: '#101820',
         ...restProps,
       }}
       {...restProps}

@@ -4,6 +4,8 @@ export interface IOrderDetail {
   description: string
   shortDescription: string
   image: string
+  price: number
+  quantity: number
 }
 
 export interface IOrderHistory {

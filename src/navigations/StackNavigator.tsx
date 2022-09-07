@@ -17,6 +17,7 @@ import Checkout from '~/views/Checkout'
 import Notifications from '~/views/Notifications'
 import Address from '~/views/Address'
 import TermAndCondition from '~/views/TermAndCondition'
+import OrderHistory from '~/views/OrderHistory'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -64,6 +65,11 @@ const StackNavigator = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen
+            name="OrderHistory"
+            component={OrderHistory}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Address" component={Address} />
           <Stack.Screen name="TermAndCondition" component={TermAndCondition} />
         </>

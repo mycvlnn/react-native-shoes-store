@@ -39,6 +39,7 @@ import SettingLanguageIcon from './SettingLanguages'
 import TermIcon from './TermIcon'
 import CameraIcon from './CameraIcon'
 import PictureIcon from './PictureIcon'
+import OrderIcon from './OrderIcon'
 
 export {
   HomeOutlineIcon,
@@ -82,4 +83,5 @@ export {
   TermIcon,
   CameraIcon,
   PictureIcon,
+  OrderIcon,
 }
