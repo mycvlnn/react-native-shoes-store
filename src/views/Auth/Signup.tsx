@@ -20,6 +20,7 @@ import { useAppDispatch } from '~/store/hooks'
 import { signUpValidation } from '~/schemas'
 import { signUp } from '~/services'
 import { saveInfoUser } from '~/store/appUserSlice'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const SignUp = () => {
   const [togglePassword, setTogglePassword] = useState(true)
@@ -256,10 +257,18 @@ const SignUp = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView
+      enableOnAndroid
+      keyboardShouldPersistTaps="handled"
+      extraHeight={350}
+      nestedScrollEnabled
+      keyboardDismissMode="on-drag"
+      showsVerticalScrollIndicator={false}
+      style={styles.container}
+    >
       {renderHeader()}
       {renderForm()}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   )
 }
 

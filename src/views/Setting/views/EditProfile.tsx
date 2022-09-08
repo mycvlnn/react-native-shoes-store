@@ -32,6 +32,7 @@ import { FileImage } from '~/models'
 import { useAppDispatch, useAppSelector } from '~/store/hooks'
 import { saveInfoUser } from '~/store/appUserSlice'
 import { appUserSelector } from '~/store/appUserSlice/selector'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const EditProfile = () => {
   const { t } = useTranslation()
@@ -342,15 +343,23 @@ const EditProfile = () => {
     return (
       <>
         {renderAvatar()}
-        <Box marginHorizontal={sizes.horizontal} marginTop={20} flex={1}>
-          <ScrollView scrollEnabled contentContainerStyle={{ paddingBottom: '10%' }}>
+        <Box marginHorizontal={sizes.horizontal} marginTop={20}>
+          <KeyboardAwareScrollView
+            enableOnAndroid
+            keyboardShouldPersistTaps="handled"
+            extraHeight={350}
+            nestedScrollEnabled
+            keyboardDismissMode="on-drag"
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: '10%' }}
+          >
             {renderName()}
             {renderEmail()}
             {renderPassword()}
             {renderPasswordConfirmation()}
             {renderGender()}
             {renderMessageError()}
-          </ScrollView>
+          </KeyboardAwareScrollView>
         </Box>
       </>
     )

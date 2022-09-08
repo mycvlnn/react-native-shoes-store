@@ -34,6 +34,7 @@
     "react-native-bouncy-checkbox": "^2.1.10",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-image-picker": "^4.10.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-localize": "^2.2.2",
     "react-native-modal": "^13.0.1",
