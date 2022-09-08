@@ -39,6 +39,8 @@ export type RootStackParamList = {
   Address: undefined
   Language: undefined
   TermAndCondition: undefined
+  Term: undefined
+  Privacy: undefined
   YourCart: undefined
   Checkout: {
     success: boolean

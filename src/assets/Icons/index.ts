@@ -45,6 +45,7 @@ import ViFlag from './flags/ViFlag'
 import KoFlag from './flags/KoFlag'
 import JaFlag from './flags/JaFlag'
 import TickIcon from './TickIcon'
+import Chevronright from './arrow/ChevronRight'
 
 export {
   HomeOutlineIcon,
@@ -94,4 +95,5 @@ export {
   KoFlag,
   JaFlag,
   TickIcon,
+  Chevronright,
 }
