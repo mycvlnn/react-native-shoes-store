@@ -5,4 +5,5 @@ export const en = {
     accessLibrary: 'Please allow library access on setting for uploading photos.',
     errorImage: 'Your selected image’s size has exceeded our capacity (maximum 5MB)',
   },
+  languages: 'Languages',
 }

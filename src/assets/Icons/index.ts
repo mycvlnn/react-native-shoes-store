@@ -40,6 +40,11 @@ import TermIcon from './TermIcon'
 import CameraIcon from './CameraIcon'
 import PictureIcon from './PictureIcon'
 import OrderIcon from './OrderIcon'
+import EnglishFlag from './flags/EnglishFlag'
+import ViFlag from './flags/ViFlag'
+import KoFlag from './flags/KoFlag'
+import JaFlag from './flags/JaFlag'
+import TickIcon from './TickIcon'
 
 export {
   HomeOutlineIcon,
@@ -84,4 +89,9 @@ export {
   CameraIcon,
   PictureIcon,
   OrderIcon,
+  EnglishFlag,
+  ViFlag,
+  KoFlag,
+  JaFlag,
+  TickIcon,
 }
