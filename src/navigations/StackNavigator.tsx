@@ -50,7 +50,7 @@ const StackNavigator = () => {
             }}
           />
           <Stack.Screen name="NotFound" component={NotFound} />
-          <Stack.Screen name="Language" component={Language} />
+          <Stack.Screen name="Language" component={Language} options={{ headerShown: false }} />
 
           <Stack.Screen name="Location" component={Location} />
           <Stack.Screen name="YourCart" component={YourCart} options={{ headerShown: false }} />

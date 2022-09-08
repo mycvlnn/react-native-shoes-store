@@ -10,6 +10,7 @@ import BadgeNotification from './UI/BadgeNotification'
 import LoadingComponent from './UI/LoadingComponent'
 import ScrollToTop from './UI/ScrollToTop'
 import TextWithLine from './TextWithLine'
+import Flag from './Flag'
 
 export {
   Test,
@@ -24,4 +25,5 @@ export {
   LoadingComponent,
   ScrollToTop,
   TextWithLine,
+  Flag,
 }
