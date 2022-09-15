@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosRes
 import { getInforUser } from '~/store/appUserSlice/selector'
 
 export const BASE_URL = 'https://shop.cyberlearn.vn/api/'
+export const APP_BASE_URL = 'https://dev.store.capichiapp.com/api/v101/'
 
 export const config: AxiosRequestConfig = {
   baseURL: BASE_URL,

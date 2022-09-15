@@ -46,6 +46,16 @@ import KoFlag from './flags/KoFlag'
 import JaFlag from './flags/JaFlag'
 import TickIcon from './TickIcon'
 import Chevronright from './arrow/ChevronRight'
+import IconPinMap from './maps/IconPinMap'
+import ArrowLocation from './maps/ArrowLocation'
+import ActiveGradientIcon from './maps/ActiveIcon'
+import PenIcon from './PenIcon'
+import HomeSolidIcon from './HomeIconSolid'
+import BagSolidIcon from './BagSolidIcon'
+import SmileSolidIcon from './SmileSolidIcon'
+import ClockPassIcon from './ClockPass'
+import LocationSearch from './maps/LocationSearch'
+import BuildingIcon from './Building'
 
 export {
   HomeOutlineIcon,
@@ -96,4 +106,14 @@ export {
   JaFlag,
   TickIcon,
   Chevronright,
+  IconPinMap,
+  ArrowLocation,
+  ActiveGradientIcon,
+  PenIcon,
+  HomeSolidIcon,
+  BagSolidIcon,
+  SmileSolidIcon,
+  ClockPassIcon,
+  LocationSearch,
+  BuildingIcon,
 }

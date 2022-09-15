@@ -1,6 +1,7 @@
 export const STATUS = {
   SUCCESS_NUM: 200,
   OK: 201,
+  OK_TEXT: 'OK',
   SUCCESS: 'success',
   UNAUTHORIZED: 401,
   ERROR: 500,

@@ -10,7 +10,7 @@ import {
 } from '~/components'
 import { defaultColors, sizes, STATUS } from '~/constants'
 import { CloseCircleIcon, LineGradient, SearchGradientIcon, SearchIcon } from '~/assets/icons'
-import { useSafeAreaInsets, initialWindowMetrics } from 'react-native-safe-area-context'
+import { initialWindowMetrics } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { useDebounce } from '~/hooks'
 import { searchProduct } from '~/services'
@@ -28,7 +28,6 @@ import Animated, {
 
 const Search = () => {
   const navigation = useNavigation()
-  const insets = useSafeAreaInsets()
   const [searchText, setSearchText] = useState('')
   const searchDebounced = useDebounce(searchText, 500)
   const [loading, setLoading] = useState(false)
