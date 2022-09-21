@@ -54,7 +54,9 @@ const ItemAddress: React.FC<IProps> = ({
     )
   }
 
-  const borderColor = isActive ? ['rgba(255, 143, 31, 1)', 'rgba(64, 172, 221, 1)'] : ['#000']
+  const borderColor = isActive
+    ? ['rgba(255, 143, 31, 1)', 'rgba(64, 172, 221, 1)']
+    : ['#000', '#000']
 
   return (
     <Pressable onPress={onPress}>

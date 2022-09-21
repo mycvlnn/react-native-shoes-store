@@ -37,8 +37,6 @@ const AddressForm = () => {
     },
     validationSchema: addressSchema,
     onSubmit: (values) => {
-      console.log({ values })
-
       const { address, icon, lat, long, name, note, id } = values
 
       // Trường hợp không có lat long thì không thể lưu
@@ -58,7 +56,7 @@ const AddressForm = () => {
           description: address,
         }),
       )
-      navigation.goBack()
+      navigation.navigate('Address')
     },
   })
 

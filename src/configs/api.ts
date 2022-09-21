@@ -23,3 +23,4 @@ export const SEARCH_PRODUCT = 'Product'
 
 export const GET_GEOMETRY_LOCATE = 'food_booking/geometry_locate_v2'
 export const GET_AUTO_COMPLETE_ADDRESS = 'food_booking/auto_complete_address'
+export const GET_ADDRESS_BY_GEOCODING = 'food_booking/find_nearby_address'

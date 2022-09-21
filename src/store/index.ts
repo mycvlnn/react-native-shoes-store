@@ -23,8 +23,8 @@ type persistConfigType = {
 }
 
 const persistConfig: persistConfigType = {
-  key: 'root',
-  version: 1,
+  key: 'root2',
+  version: 2,
   storage: AsyncStorage,
   whitelist: ['appUser', 'cart'], // Danh sách những slice được persist
 }

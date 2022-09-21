@@ -12,6 +12,7 @@ import ScrollToTop from './UI/ScrollToTop'
 import TextWithLine from './TextWithLine'
 import Flag from './Flag'
 import AutoComplete from './AutoComplete'
+import LoadingOverlay from './UI/LoadingOverLay'
 
 export {
   Test,
@@ -28,4 +29,5 @@ export {
   TextWithLine,
   Flag,
   AutoComplete,
+  LoadingOverlay,
 }

@@ -56,6 +56,8 @@ import SmileSolidIcon from './SmileSolidIcon'
 import ClockPassIcon from './ClockPass'
 import LocationSearch from './maps/LocationSearch'
 import BuildingIcon from './Building'
+import CustomPinIcon from './maps/CustomPinIcon'
+import MyLocationIcon from './maps/MyLocationIcon'
 
 export {
   HomeOutlineIcon,
@@ -116,4 +118,6 @@ export {
   ClockPassIcon,
   LocationSearch,
   BuildingIcon,
+  CustomPinIcon,
+  MyLocationIcon,
 }

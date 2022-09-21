@@ -1,10 +1,12 @@
 import { nanoid } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
+import { LatLng } from 'react-native-maps'
 import {
   httpRequest,
   APP_BASE_URL,
   GET_GEOMETRY_LOCATE,
   GET_AUTO_COMPLETE_ADDRESS,
+  GET_ADDRESS_BY_GEOCODING,
 } from '~/configs'
 import { STATUS } from '~/constants'
 import { IAddressItem } from '~/models'
@@ -74,6 +76,41 @@ export const getGeometryLocation: (
     return {
       statusCode: response.status,
       message: response.statusText,
+    }
+  } catch (error) {
+    const err = error as AxiosError
+
+    throw err
+  }
+}
+
+// Hàm tìm kiếmm địa chỉ thông qua qua lat long
+export const getAddressByGeocoding: (
+  coordinate: LatLng,
+) => Promise<IResponseBase<IAddressItem[]>> = async ({ latitude, longitude }) => {
+  try {
+    const response = await httpRequest({ baseURL: APP_BASE_URL }).get<IGoogleGeometryLocate>(
+      GET_ADDRESS_BY_GEOCODING,
+      { params: { lat: latitude, long: longitude } },
+    )
+    if (response.status === STATUS.SUCCESS_NUM) {
+      const { results } = response.data
+
+      return {
+        statusCode: response.status,
+        content: results.map((item) => {
+          return {
+            id: `${Date.now()}_${nanoid()}`,
+            lat: item.geometry.location.lat,
+            long: item.geometry.location.lng,
+            description: item.formatted_address,
+          }
+        }),
+      }
+    }
+
+    return {
+      statusCode: response.status,
     }
   } catch (error) {
     const err = error as AxiosError

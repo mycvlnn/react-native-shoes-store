@@ -83,7 +83,7 @@ const StackNavigator = () => {
           <Stack.Screen
             name="PickLocation"
             component={PickLocation}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="TermAndCondition"
