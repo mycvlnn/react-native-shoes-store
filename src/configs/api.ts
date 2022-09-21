@@ -18,3 +18,9 @@ export const GET_PRODUCT_BY_CATEGORY_ID = 'Product/getProductByCategory'
 export const GET_ALL_STORE = 'Product/getAllStore'
 export const GET_DETAIL_PRODUCT = 'Product/getbyid'
 export const SEARCH_PRODUCT = 'Product'
+
+//==================GOOGLE API==================//
+
+export const GET_GEOMETRY_LOCATE = 'food_booking/geometry_locate_v2'
+export const GET_AUTO_COMPLETE_ADDRESS = 'food_booking/auto_complete_address'
+export const GET_ADDRESS_BY_GEOCODING = 'food_booking/find_nearby_address'

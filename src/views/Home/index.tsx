@@ -16,10 +16,12 @@ import { ICategory, IProductDetail, IStore } from '~/services/models'
 import ProductItem from './components/ProductItem'
 import ItemStore from './components/ItemStore'
 import { hasCart } from '~/store/cartSlice/selector'
+import { appUserSelector } from '~/store/appUserSlice/selector'
 
 const Home = () => {
   const navigation = useNavigation()
   const isCart = useAppSelector(hasCart)
+  const { address } = useAppSelector(appUserSelector)
 
   const [idActiveCategory, setIdActiveCategory] = useState('')
   const [categories, setCategories] = useState<ICategory[]>([])
@@ -31,16 +33,36 @@ const Home = () => {
     setIdActiveCategory(id)
   }
 
+  const renderLocation = () => {
+    const { currentLocation } = address
+    let nameLocation = ''
+
+    if (!currentLocation) {
+      nameLocation = 'Choose location'
+    } else {
+      const { icon, title, description } = currentLocation
+      nameLocation = (icon === 'clock' ? description : title) || ''
+    }
+
+    return (
+      <Pressable onPress={() => navigation.navigate('Address')} style={{ alignItems: 'center' }}>
+        <Box flexDirection="row" alignItems="center" justifyContent="center" width="80%">
+          <LocationSolid size={12} color={primaryBold} />
+          <Typography marginLeft={8} numberOfLines={1} textAlign="center">
+            {nameLocation}
+          </Typography>
+        </Box>
+      </Pressable>
+    )
+  }
+
   const renderCustomTitle = () => {
     return (
-      <Box justifyContent="center">
+      <Box justifyContent="center" flex={1}>
         <Typography textAlign="center" marginBottom={8} fontSize={14} color="#888">
-          Store location
+          My location
         </Typography>
-        <Box flexDirection="row" alignItems="center">
-          <LocationSolid size={12} color={primaryBold} />
-          <Typography marginLeft={8}>Rembang, Ind</Typography>
-        </Box>
+        {renderLocation()}
       </Box>
     )
   }

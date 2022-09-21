@@ -1,4 +1,4 @@
-import type { Rationale } from 'react-native' // Cơ sở lý luận
+import { Platform, Rationale } from 'react-native' // Rationale:  Cơ sở lý luận
 import {
   RESULTS,
   check,
@@ -8,8 +8,16 @@ import {
   AndroidPermission,
   IOSPermission,
   PermissionStatus,
+  PERMISSIONS,
 } from 'react-native-permissions'
 
+import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation'
+
+// Migrating from the core react-native module
+Geolocation.setRNConfiguration({
+  skipPermissionRequests: true, // Trong trường hợp là true. bạn phải yêu cầu quyền trước khi sử dụng API vị trí địa lý.
+  authorizationLevel: 'whenInUse',
+})
 export interface IPayloadRequestPermission {
   permission: AndroidPermission | IOSPermission
   needRequest?: boolean
@@ -61,4 +69,43 @@ export const checkNotificationPermission: () => IResponseRequestPermission = asy
     default:
       return status
   }
+}
+
+//============ LOCATION - PERMISSION ==================
+
+const locationPermission = Platform.select({
+  ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+  android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+}) as AndroidPermission | IOSPermission
+
+export const checkAndRequestLocationPermission: (
+  rationale?: Rationale,
+) => IResponseRequestPermission = async (rationale) => {
+  const result = await check(locationPermission)
+  switch (result) {
+    case RESULTS.DENIED:
+      return requestPermission(locationPermission, rationale)
+
+    default:
+      return result
+  }
+}
+
+// Hàm xử lý lấy vị trí hiện tại
+export const getCurrentLocation: () => Promise<GeolocationResponse> = () => {
+  return new Promise<GeolocationResponse>((resolve, reject) => {
+    Geolocation.getCurrentPosition(
+      (success) => {
+        resolve(success)
+      },
+      (error) => {
+        reject(error)
+      },
+      {
+        enableHighAccuracy: Platform.OS === 'ios',
+        timeout: 30000,
+        maximumAge: 36000,
+      },
+    )
+  })
 }

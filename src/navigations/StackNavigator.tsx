@@ -20,6 +20,8 @@ import TermAndCondition from '~/views/TermAndCondition'
 import OrderHistory from '~/views/OrderHistory'
 import TermScreen from '~/views/TermAndCondition/views/TermScreen'
 import PrivacySceen from '~/views/TermAndCondition/views/PrivacySceen'
+import AddressForm from '~/views/Address/views/AddressForm'
+import PickLocation from '~/views/Address/views/PickLocation'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -72,7 +74,17 @@ const StackNavigator = () => {
             component={OrderHistory}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Address" component={Address} />
+          <Stack.Screen name="Address" component={Address} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="AddressForm"
+            component={AddressForm}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PickLocation"
+            component={PickLocation}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="TermAndCondition"
             component={TermAndCondition}

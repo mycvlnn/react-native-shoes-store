@@ -1,15 +1,18 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '12.4'
+# Google Maps SDK for iOS requires iOS 13, so make sure that your deployment target is >= 13.0 in your iOS project settings.
+platform :ios, '13.0' 
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'shoes_store' do
+
   config = use_native_modules!
 
   # Flags change depending on the env values.
   flags = get_default_flags()
 
+  
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
@@ -32,6 +35,14 @@ target 'shoes_store' do
  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+ #  Location 
+ pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
+ pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
+ pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
 
   # Enables Flipper.
   #

@@ -11,6 +11,7 @@ import type {
 } from '@react-navigation/native-stack'
 
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
+import { IAddressItem } from '~/models'
 
 export type BottomTabParamList = {
   Home: undefined
@@ -37,6 +38,11 @@ export type RootStackParamList = {
   Notifications: undefined
   OrderHistory: NavigatorScreenParams<TopBarOrderHistory>
   Address: undefined
+  AddressForm: {
+    addressItem: IAddressItem
+    isEdit?: boolean
+  }
+  PickLocation: undefined
   Language: undefined
   TermAndCondition: undefined
   Term: undefined
