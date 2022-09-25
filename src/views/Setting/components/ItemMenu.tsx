@@ -19,7 +19,7 @@ const ItemMenu: React.FC<IProps> = ({ icon, label, isActive, onPress = () => {},
         justifyContent="space-between"
         marginBottom={!lastIndex ? 24 : 0}
       >
-        <Box flexDirection="row">
+        <Box flexDirection="row" alignItems="center">
           <Box minWidth={30}>{icon}</Box>
           <Typography fontSize={18} fontWeight="600">
             {label}

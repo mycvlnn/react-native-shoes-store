@@ -1,6 +1,14 @@
-import { Image, Keyboard, Platform, Pressable, ScrollView } from 'react-native'
+import { Image, Keyboard, Platform, Pressable } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useFormik } from 'formik'
+import BouncyCheckbox from 'react-native-bouncy-checkbox'
+import { RESULTS, openSettings } from 'react-native-permissions'
+import type { ImageLibraryOptions } from 'react-native-image-picker'
+import * as ImagePicker from 'react-native-image-picker'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import { Box, CustomInput, ErrorServer, Header, Loading, Typography } from '~/components'
 import {
   defaultColors,
@@ -11,11 +19,6 @@ import {
   sizes,
   STATUS,
 } from '~/constants'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { useFormik } from 'formik'
-import { updateProfileSchema } from '~/schemas'
-import { EmailIcon, EyeIcon, EyeIconSlash, LockIcon, UserSolid } from '~/assets/icons'
-import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { changePassword, getInfoUser, updateInfoUser } from '~/services'
 import Unauthorized from '~/components/Popup/Unauthorized'
 import PopupImagePicker from '~/components/Popup/PopupImagePicker'
@@ -25,14 +28,12 @@ import {
   checkAndRequestLibraryPermission,
   validateFileSize,
 } from '~/utils'
-import { RESULTS, openSettings } from 'react-native-permissions'
-import type { ImageLibraryOptions } from 'react-native-image-picker'
-import * as ImagePicker from 'react-native-image-picker'
+import { updateProfileSchema } from '~/schemas'
+import { EmailIcon, EyeIcon, EyeIconSlash, LockIcon, UserSolid } from '~/assets/icons'
 import { FileImage } from '~/models'
 import { useAppDispatch, useAppSelector } from '~/store/hooks'
-import { saveInfoUser } from '~/store/appUserSlice'
+import { saveAvatar } from '~/store/appUserSlice'
 import { appUserSelector } from '~/store/appUserSlice/selector'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const EditProfile = () => {
   const { t } = useTranslation()
@@ -343,15 +344,16 @@ const EditProfile = () => {
     return (
       <>
         {renderAvatar()}
-        <Box marginHorizontal={sizes.horizontal} marginTop={20}>
+        <Box marginHorizontal={sizes.horizontal} marginTop={20} flex={1}>
           <KeyboardAwareScrollView
-            enableOnAndroid
-            keyboardShouldPersistTaps="handled"
-            extraHeight={350}
-            nestedScrollEnabled
+            style={{ flex: 1 }}
+            scrollEnabled={true}
+            enableOnAndroid={true}
             keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="handled"
+            extraHeight={50}
+            nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: '10%' }}
           >
             {renderName()}
             {renderEmail()}
@@ -388,12 +390,11 @@ const EditProfile = () => {
         setFileImage({
           name: mediaResponse.fileName,
           uri,
-
           type: mediaResponse.type,
         })
 
         // lưu redux
-        dispatch(saveInfoUser({ avatar: uri }))
+        dispatch(saveAvatar(uri || ''))
       } else {
         setErrorImage(true)
       }

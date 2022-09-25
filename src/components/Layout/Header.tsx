@@ -1,7 +1,6 @@
 import React from 'react'
 import { Pressable } from 'react-native'
 
-import { initialWindowMetrics, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ArrowBackIcon } from '~/assets/icons'
 import { Box, Typography } from '~/components'
 import { sizes, textColor } from '~/constants'
@@ -41,14 +40,11 @@ const Header: React.FC<IProps> = ({
   zIndex = 1,
   width = '100%',
   position = 'relative',
-  height = 100,
   goBack,
   customBack,
   customRight,
   customTitle,
 }) => {
-  const insets = useSafeAreaInsets()
-
   const renderBackIcon = () => {
     if (!goBack) return <Box width={10} height={10} />
 
@@ -82,10 +78,7 @@ const Header: React.FC<IProps> = ({
       position={position}
       top={0}
       width={width}
-      paddingHorizontal={sizes.horizontal}
-      paddingTop={insets.top || initialWindowMetrics?.insets.top}
-      paddingBottom={(insets.top || initialWindowMetrics?.insets.top || 0) / 2}
-      height={height}
+      padding={sizes.horizontal}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"

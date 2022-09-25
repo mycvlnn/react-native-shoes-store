@@ -77,10 +77,13 @@ export const appUserSlice = createSlice({
 
       state.address.popular = state.address.popular.filter((item) => item.id !== idAddress)
     },
+    saveAvatar: (state, action: PayloadAction<string>) => {
+      state.avatar = action.payload
+    },
   },
 })
 
-export const { saveInfoUser, logoutUser, selectLocation, saveAddress, deleteAddress } =
+export const { saveInfoUser, logoutUser, selectLocation, saveAddress, deleteAddress, saveAvatar } =
   appUserSlice.actions
 
 export default appUserSlice.reducer

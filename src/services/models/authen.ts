@@ -13,7 +13,7 @@ export interface UserProfile extends SignUp {
   ordersHistory?: []
   facebookId?: string | null
   deleted?: boolean
-  avatar?: string | null
+  avatar?: string
 }
 
 export interface SignInResponse extends SignIn {
