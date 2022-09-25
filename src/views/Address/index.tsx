@@ -234,7 +234,7 @@ const Address = () => {
   // Mặc định vào màn hình này sẽ có các địa chỉ mặc định
   const renderDefaultAddress = () => {
     return (
-      <Box>
+      <Box marginBottom={sizes.horizontal}>
         {renderMyLocation()}
         {renderPopularAddress()}
         {renderRecentAddress()}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, Pressable } from 'react-native'
+import { Image, Pressable, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import LinearGradient from 'react-native-linear-gradient'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
@@ -174,14 +174,16 @@ const Setting = () => {
 
   return (
     <LinearGradient colors={['#ffe6cc', '#F1F5F8', '#FFFFFF']} style={{ flex: 1 }}>
-      <Box paddingTop={insets.top + 50} flex={1} padding={sizes.horizontal * 2}>
-        {renderCloseBtn()}
-        {renderAvatar()}
-        {renderNameUser()}
-        {renderListMenu()}
-        {renderBtnLogout()}
-        {renderPopupLogout()}
-      </Box>
+      <ScrollView style={{ flex: 1 }}>
+        <Box paddingTop={insets.top + 50} flex={1} padding={sizes.horizontal * 2}>
+          {renderCloseBtn()}
+          {renderAvatar()}
+          {renderNameUser()}
+          {renderListMenu()}
+          {renderBtnLogout()}
+          {renderPopupLogout()}
+        </Box>
+      </ScrollView>
     </LinearGradient>
   )
 }

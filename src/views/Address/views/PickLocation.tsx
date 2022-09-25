@@ -114,12 +114,6 @@ const PickLocation = () => {
           },
           300,
         )
-        const { statusCode, content } = await getAddressByGeocoding({ latitude, longitude })
-        if (statusCode === STATUS.SUCCESS_NUM && content) {
-          setCurrentAddress(content[0] || {})
-        } else {
-          throw new Error()
-        }
       } else {
         throw new Error()
       }
