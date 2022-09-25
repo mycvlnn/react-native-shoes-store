@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useSelector } from 'react-redux'
 
@@ -10,7 +10,6 @@ import YourCart from '~/views/YourCart'
 import NotFound from '~/views/NotFound'
 import Language from '~/views/Language'
 import Location from '~/views/Setting/views/Location'
-import { Loading } from '~/components'
 import Authen from '~views/Auth'
 import { appUserSelector } from '~/store/appUserSlice/selector'
 import Checkout from '~/views/Checkout'
@@ -22,23 +21,20 @@ import TermScreen from '~/views/TermAndCondition/views/TermScreen'
 import PrivacySceen from '~/views/TermAndCondition/views/PrivacySceen'
 import AddressForm from '~/views/Address/views/AddressForm'
 import PickLocation from '~/views/Address/views/PickLocation'
+import Splash from '~/views/Splash'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const StackNavigator = () => {
-  const [loading, setLoading] = useState(true)
   const { isLogin } = useSelector(appUserSelector)
+  const [showSplash, setShowSplash] = useState(true)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
-  }, [])
-
-  if (loading) return <Loading />
+  if (showSplash) {
+    return <Splash onFinishSplash={() => setShowSplash(false)} />
+  }
 
   return (
-    <Stack.Navigator initialRouteName={isLogin ? 'BottomTab' : 'Authen'}>
+    <Stack.Navigator>
       {isLogin ? (
         <>
           <Stack.Screen

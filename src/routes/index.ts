@@ -1,10 +1,11 @@
-import { RootStackParamList } from '~/navigations/types'
+import { AuthenTabParamList, BottomTabParamList, RootStackParamList } from '~/navigations/types'
 
 type Entries<T> = {
   [K in keyof T]: K
 }
 
-export const routes: Entries<RootStackParamList> = {
+export const routes: Entries<RootStackParamList & BottomTabParamList & AuthenTabParamList> = {
+  Splash: 'Splash',
   Address: 'Address',
   BottomTab: 'BottomTab',
   Authen: 'Authen',
@@ -20,4 +21,12 @@ export const routes: Entries<RootStackParamList> = {
   Term: 'Term',
   TermAndCondition: 'TermAndCondition',
   YourCart: 'YourCart',
+  AddressForm: 'AddressForm',
+  PickLocation: 'PickLocation',
+  Favorite: 'Favorite',
+  Home: 'Home',
+  Search: 'Search',
+  Setting: 'Setting',
+  SignIn: 'SignIn',
+  SignUp: 'SignUp',
 }
