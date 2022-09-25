@@ -31,6 +31,7 @@ export type TopBarOrderHistory = {
 }
 
 export type RootStackParamList = {
+  Splash: undefined
   BottomTab: NavigatorScreenParams<BottomTabParamList>
   ProductDetail: { id: string | number }
   Location: undefined

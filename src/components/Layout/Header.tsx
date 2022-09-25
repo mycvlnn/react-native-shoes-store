@@ -1,5 +1,6 @@
 import React from 'react'
-import { Pressable } from 'react-native'
+import { Platform, Pressable } from 'react-native'
+import { initialWindowMetrics } from 'react-native-safe-area-context'
 
 import { ArrowBackIcon } from '~/assets/icons'
 import { Box, Typography } from '~/components'
@@ -79,6 +80,7 @@ const Header: React.FC<IProps> = ({
       top={0}
       width={width}
       padding={sizes.horizontal}
+      paddingTop={Platform.OS === 'ios' ? initialWindowMetrics?.insets.top : sizes.horizontal}
       zIndex={zIndex}
       flexDirection="row"
       alignItems="center"

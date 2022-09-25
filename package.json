@@ -29,6 +29,7 @@
     "deprecated-react-native-prop-types": "^2.2.0",
     "formik": "^2.2.9",
     "i18next": "^21.8.13",
+    "lottie-react-native": "^5.1.4",
     "react": "18.0.0",
     "react-i18next": "^11.18.0",
     "react-native": "0.69.0",
