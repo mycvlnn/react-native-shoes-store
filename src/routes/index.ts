@@ -29,4 +29,5 @@ export const routes: Entries<RootStackParamList & BottomTabParamList & AuthenTab
   Setting: 'Setting',
   SignIn: 'SignIn',
   SignUp: 'SignUp',
+  Onboarding: 'Onboarding',
 }

@@ -22,11 +22,12 @@ import PrivacySceen from '~/views/TermAndCondition/views/PrivacySceen'
 import AddressForm from '~/views/Address/views/AddressForm'
 import PickLocation from '~/views/Address/views/PickLocation'
 import Splash from '~/views/Splash'
+import Onboarding from '~/views/onboarding'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const StackNavigator = () => {
-  const { isLogin } = useSelector(appUserSelector)
+  const { isLogin, isFirstLauch } = useSelector(appUserSelector)
   const [showSplash, setShowSplash] = useState(true)
 
   if (showSplash) {
@@ -35,6 +36,9 @@ const StackNavigator = () => {
 
   return (
     <Stack.Navigator>
+      {isFirstLauch && (
+        <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
+      )}
       {isLogin ? (
         <>
           <Stack.Screen
