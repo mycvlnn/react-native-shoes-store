@@ -8,6 +8,7 @@ interface AppUserState extends UserProfile {
   localeCode?: string
   accessToken?: string | null
   isLogin?: boolean
+  isFirstLauch?: boolean
   address: {
     popular: IAddressItem[]
     recentLocation?: IAddressItem[]
@@ -22,6 +23,7 @@ const initialState: AppUserState = {
   email: '',
   phone: '',
   isLogin: false,
+  isFirstLauch: true,
   avatar: '',
   address: {
     popular: [
@@ -80,10 +82,20 @@ export const appUserSlice = createSlice({
     saveAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload
     },
+    setIsFirstLauchApp: (state, action: PayloadAction<boolean>) => {
+      state.isFirstLauch = action.payload
+    },
   },
 })
 
-export const { saveInfoUser, logoutUser, selectLocation, saveAddress, deleteAddress, saveAvatar } =
-  appUserSlice.actions
+export const {
+  saveInfoUser,
+  logoutUser,
+  selectLocation,
+  saveAddress,
+  deleteAddress,
+  saveAvatar,
+  setIsFirstLauchApp,
+} = appUserSlice.actions
 
 export default appUserSlice.reducer
