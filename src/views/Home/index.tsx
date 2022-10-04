@@ -108,7 +108,7 @@ const Home = () => {
     return (
       <Box marginTop={20}>
         <Typography fontSize={20} fontWeight="700" marginBottom={20} marginLeft={sizes.horizontal}>
-          Category
+          Most Popular
         </Typography>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <Box flexDirection="row" paddingHorizontal={sizes.horizontal}>
@@ -143,23 +143,23 @@ const Home = () => {
 
   const renderListProduct = () => {
     return (
-      <Box marginTop={30} marginBottom={30}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <Box flexDirection="row" paddingHorizontal={sizes.horizontal}>
-            {listProduct.map(({ id, name, price, shortDescription, image }) => {
-              return (
-                <ProductItem
-                  onPress={() => goToDetailProduct(id)}
-                  key={id.toString()}
-                  name={name}
-                  image={image}
-                  shortDescription={shortDescription}
-                  price={price}
-                />
-              )
-            })}
-          </Box>
-        </ScrollView>
+      <Box marginTop={30} marginBottom={30} paddingHorizontal={10}>
+        <Box flexDirection="row" flexWrap="wrap" marginHorizontal={-5}>
+          {listProduct.map(({ id, name, price, shortDescription, image, quantity }) => {
+            return (
+              <ProductItem
+                id={id}
+                onPress={() => goToDetailProduct(id)}
+                key={id.toString()}
+                name={name}
+                image={image}
+                shortDescription={shortDescription}
+                price={price}
+                quantity={quantity}
+              />
+            )
+          })}
+        </Box>
       </Box>
     )
   }
@@ -231,7 +231,7 @@ const Home = () => {
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} backgroundColor="#fff">
       {renderHeader()}
       <ScrollView
         showsVerticalScrollIndicator={false}
