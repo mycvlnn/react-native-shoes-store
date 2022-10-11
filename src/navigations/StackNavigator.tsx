@@ -23,6 +23,7 @@ import AddressForm from '~/views/Address/views/AddressForm'
 import PickLocation from '~/views/Address/views/PickLocation'
 import Splash from '~/views/Splash'
 import Onboarding from '~/views/onboarding'
+import StoreDetails from '~/views/StoreList/views/StoreDetails'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -51,6 +52,13 @@ const StackNavigator = () => {
             component={ProductDetail}
             options={{
               headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="StoreDetails"
+            component={StoreDetails}
+            options={{
+              headerShown: true,
             }}
           />
           <Stack.Screen name="NotFound" component={NotFound} />

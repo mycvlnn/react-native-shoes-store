@@ -1,22 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BadgeNotification, Box, Header, Typography } from '~/components'
-import { Pressable, ScrollView, StyleSheet } from 'react-native'
+import { Pressable, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 
 import { useAppSelector } from '~/store/hooks'
 
 import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
 
 import { primaryBold, primaryColor, sizes, STATUS } from '~/constants'
 import { BagRegular, LocationSolid, MenuIconLeft } from '~/assets/icons'
 import BoxShadow from './components/BoxShadow'
 import Banner from './components/Banner'
-import { getAllCategory, getAllStore, getProductByCategoryId } from '~/services'
-import { ICategory, IProductDetail, IStore } from '~/services/models'
+import { getAllCategory, getProductByCategoryId } from '~/services'
+import { ICategory, IProductDetail } from '~/services/models'
 import ProductItem from './components/ProductItem'
-import ItemStore from './components/ItemStore'
 import { hasCart } from '~/store/cartSlice/selector'
 import { appUserSelector } from '~/store/appUserSlice/selector'
+import StoreList from '~views/StoreList'
 
 const Home = () => {
   const navigation = useNavigation()
@@ -26,8 +25,7 @@ const Home = () => {
   const [idActiveCategory, setIdActiveCategory] = useState('')
   const [categories, setCategories] = useState<ICategory[]>([])
   const [listProduct, setListProduct] = useState<IProductDetail[]>([])
-  const [listStore, setListStore] = useState<IStore[]>([])
-  const { t } = useTranslation()
+  const [isRefresh, setIsRefresh] = useState(false)
 
   const handleClickCategory = (id: string) => {
     setIdActiveCategory(id)
@@ -194,6 +192,7 @@ const Home = () => {
     } catch (error) {
       setListProduct([])
     }
+    setIsRefresh(false)
   }, [])
 
   useEffect(() => {
@@ -202,38 +201,21 @@ const Home = () => {
     }
   }, [idActiveCategory, getListProductByCategoryId])
 
-  const getListRestaurants = useCallback(async () => {
-    try {
-      const { statusCode, content } = await getAllStore()
-      if (statusCode === STATUS.SUCCESS_NUM) {
-        if (content) setListStore(content)
-      }
-    } catch (error) {
-      setListStore([])
-    }
-  }, [])
-
-  useEffect(() => {
-    void getListRestaurants()
-  }, [getListRestaurants])
-
   const renderListRestaraurants = () => {
-    return (
-      <Box marginHorizontal={sizes.horizontal}>
-        <Typography fontSize={20} fontWeight="700" marginBottom={20}>
-          Explore more
-        </Typography>
-        {listStore.map(({ id, name, image, description }) => {
-          return <ItemStore key={id} name={name} image={image} description={description} />
-        })}
-      </Box>
-    )
+    return <StoreList />
+  }
+
+  const onRefreshData = () => {
+    setIsRefresh(true)
+    void getCategories()
+    void getListProductByCategoryId(idActiveCategory)
   }
 
   return (
     <Box flex={1} backgroundColor="#fff">
       {renderHeader()}
       <ScrollView
+        refreshControl={<RefreshControl refreshing={isRefresh} onRefresh={onRefreshData} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
       >
