@@ -35,6 +35,7 @@ export type RootStackParamList = {
   Onboarding: undefined
   BottomTab: NavigatorScreenParams<BottomTabParamList>
   ProductDetail: { id: string | number }
+  StoreDetails: { id: string | number }
   Location: undefined
   EditProfile: undefined
   Notifications: undefined

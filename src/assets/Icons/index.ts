@@ -58,6 +58,8 @@ import LocationSearch from './maps/LocationSearch'
 import BuildingIcon from './Building'
 import CustomPinIcon from './maps/CustomPinIcon'
 import MyLocationIcon from './maps/MyLocationIcon'
+import OclockIcon from './Oclock'
+import StarIconOutline from './StarIconOutline'
 
 export {
   HomeOutlineIcon,
@@ -120,4 +122,6 @@ export {
   BuildingIcon,
   CustomPinIcon,
   MyLocationIcon,
+  OclockIcon,
+  StarIconOutline,
 }
