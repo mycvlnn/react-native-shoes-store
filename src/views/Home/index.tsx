@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { BadgeNotification, Box, Header, Typography } from '~/components'
 import { Pressable, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 
 import { useAppSelector } from '~/store/hooks'
 
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useScrollToTop } from '@react-navigation/native'
 
 import { primaryBold, primaryColor, sizes, STATUS } from '~/constants'
 import { BagRegular, LocationSolid, MenuIconLeft } from '~/assets/icons'
@@ -26,6 +26,10 @@ const Home = () => {
   const [categories, setCategories] = useState<ICategory[]>([])
   const [listProduct, setListProduct] = useState<IProductDetail[]>([])
   const [isRefresh, setIsRefresh] = useState(false)
+  const [offsetY, setOffsetY] = useState(0)
+
+  const refScrollView = useRef() as MutableRefObject<ScrollView>
+  useScrollToTop(refScrollView)
 
   const handleClickCategory = (id: string) => {
     setIdActiveCategory(id)
@@ -205,16 +209,30 @@ const Home = () => {
     return <StoreList />
   }
 
-  const onRefreshData = () => {
+  const onRefreshData = useCallback(() => {
     setIsRefresh(true)
     void getCategories()
     void getListProductByCategoryId(idActiveCategory)
-  }
+  }, [getCategories, getListProductByCategoryId, idActiveCategory])
+
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const unsubscribe = navigation.addListener('tabPress' as any, () => {
+      if (offsetY === 0) {
+        onRefreshData()
+      }
+    })
+
+    return unsubscribe
+  }, [navigation, offsetY, onRefreshData])
 
   return (
     <Box flex={1} backgroundColor="#fff">
       {renderHeader()}
       <ScrollView
+        onScroll={(e) => setOffsetY(e.nativeEvent.contentOffset.y)}
+        ref={refScrollView}
+        scrollEventThrottle={16}
         refreshControl={<RefreshControl refreshing={isRefresh} onRefresh={onRefreshData} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
