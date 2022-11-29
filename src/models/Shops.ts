@@ -16,3 +16,18 @@ export interface IShopDetail extends IShop {
   long: number
   products: string[]
 }
+
+export interface IShoesItem {
+  id: string | number
+  image: ImageSourcePropType
+  name: string
+  description: string
+  price: number
+  active: boolean
+}
+
+export interface IShoesCategory {
+  id: string | number
+  name: string
+  data: IShoesItem[]
+}

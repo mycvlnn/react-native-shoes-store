@@ -60,6 +60,11 @@ import CustomPinIcon from './maps/CustomPinIcon'
 import MyLocationIcon from './maps/MyLocationIcon'
 import OclockIcon from './Oclock'
 import StarIconOutline from './StarIconOutline'
+import PromotionIcon from './PromotionIcon'
+import ThreeDots from './ThreeDots'
+import ShipperIcon from './ShipperIcon'
+import ArrowDownIcon from './arrow/ArrowDown'
+import GhostIcon from './GhostIcon'
 
 export {
   HomeOutlineIcon,
@@ -124,4 +129,9 @@ export {
   MyLocationIcon,
   OclockIcon,
   StarIconOutline,
+  PromotionIcon,
+  ThreeDots,
+  ShipperIcon,
+  ArrowDownIcon,
+  GhostIcon,
 }

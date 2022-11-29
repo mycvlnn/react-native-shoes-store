@@ -58,7 +58,7 @@ const StackNavigator = () => {
             name="StoreDetails"
             component={StoreDetails}
             options={{
-              headerShown: true,
+              headerShown: false,
             }}
           />
           <Stack.Screen name="NotFound" component={NotFound} />

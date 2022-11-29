@@ -40,7 +40,7 @@ const ButtonOpacity: React.FC<IProps> = ({
   if (size === 'sm') {
     style = {
       paddingVertical: 12,
-      paddingHorizontal: 8,
+      paddingHorizontal: 18,
       borderRadius: 20,
     }
   }
