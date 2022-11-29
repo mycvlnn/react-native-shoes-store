@@ -113,9 +113,9 @@ const StoreDetails = () => {
         <Typography fontSize={36} fontWeight="300" color={primaryColor}>
           4.8
         </Typography>
-        <Box position="absolute" bottom="-20%" right="- 10%">
+        <Box position="absolute" bottom="-20%" right="-10%">
           <Typography fontSize={12} fontWeight="300">
-            (157)
+            157
           </Typography>
         </Box>
       </Box>
